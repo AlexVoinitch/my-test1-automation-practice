@@ -2,24 +2,24 @@
 
 ## General
 
-* **Поиск по всему проекту:** `Ctrl + Shift + F` (Windows/Linux) / `Cmd + Shift + F` (macOS)
-* **Поиск файла:** `Ctrl + P` (Windows/Linux) / `Cmd + P` (macOS)
-* **Открыть палитру команд:** `Ctrl + Shift + P` (Windows/Linux) / `Cmd + Shift + P` (macOS)
-* **Сохранить файл:** `Ctrl + S` (Windows/Linux) / `Cmd + S` (macOS)
-* **Закрыть вкладку:** `Ctrl + W` (Windows/Linux) / `Cmd + W` (macOS)
+* **Search across the project** `Ctrl + Shift + F` (Windows/Linux) / `Cmd + Shift + F` (macOS)
+* **Search file** `Ctrl + P` (Windows/Linux) / `Cmd + P` (macOS)
+* **Open command palette** `Ctrl + Shift + P` (Windows/Linux) / `Cmd + Shift + P` (macOS)
+* **Save file** `Ctrl + S` (Windows/Linux) / `Cmd + S` (macOS)
+* **Close tab** `Ctrl + W` (Windows/Linux) / `Cmd + W` (macOS)
 
 ## Editing
 
-* **Комментировать/раскомментировать строку:** `Ctrl + /` (Windows/Linux) / `Cmd + /` (macOS)
-* **Форматировать документ:** `Shift + Alt + F` (Windows/Linux) / `Shift + Option + F` (macOS)
+* **Comment/uncomment line:** `Ctrl + /` (Windows/Linux) / `Cmd + /` (macOS)
+* **Format document** `Shift + Alt + F` (Windows/Linux) / `Shift + Option + F` (macOS)
 
 ## Navigation
 
-* **Перейти к определению символа:** `F12`
-* **Найти все вхождения символа:** `Shift + F12`
-* **Переключиться между вкладками:** `Ctrl + Page Up / Down` (Windows/Linux) / `Cmd + { / }` (macOS)
+* **Go to symbol definition** `F12`
+* **Find all symbol references** `Shift + F12`
+* **Switch between tabs** `Ctrl + Page Up / Down` (Windows/Linux) / `Cmd + { / }` (macOS)
 
 ## View
 
-* **Открыть терминал:** `Ctrl + \`` (Windows/Linux) / `Cmd + \`` (macOS)
-* **Разделить редактор:** `Ctrl + \` (Windows/Linux) / `Cmd + \` (macOS)
+* **Open terminal** `Ctrl + \`` (Windows/Linux) / `Cmd + \`` (macOS)
+* **Split editor:** `Ctrl + \` (Windows/Linux) / `Cmd + \` (macOS)
