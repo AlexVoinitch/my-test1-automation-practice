@@ -1,0 +1,12 @@
+{
+    "login": {
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "loginButton": "Login",
+      "errorMessagePrefix": "Epic sadface: "
+    },
+    "home": {
+      "productTitle": "Products"
+    },
+    // ... other localization strings
+  }
