@@ -1,10 +1,26 @@
-# Git Workflow Strategy
+# Git Workflow Strategy 
+This document outlines the Git strategy for this project
 
 ## Branching Strategy
+We primarily use the `main` branch for the stable, production-ready code. Development and feature work should be done in separate feature branches.
 
 * **`main` (or `master`)**: Main stable branch.
 * **`develop`**:  Branch for integrating developing features.
 * **`feature/FEATURE_NAME`**: Branches for developing specific functionalities (e.g., feature/add-login-page).
+
+## Pull Requests
+
+All changes to the `main` branch must be submitted via Pull Requests (PRs). Direct commits to `main` are prohibited.
+
+**PR Requirements:**
+
+* Each Pull Request must receive at least one approval from another team member before it can be merged.
+* All conversations within the Pull Request must be resolved before merging.
+* Squash merging is the only allowed method for merging Pull Requests into the `main` branch. This helps maintain a clean and linear commit history on the `main` branch.
+
+## Commit Guidelines
+
+(You can add your commit message guidelines here if you have any)
 
 ## Rules
 
