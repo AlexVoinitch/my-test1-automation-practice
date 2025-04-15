@@ -1,5 +1,6 @@
 # my-test1-automation-practice
 test
++test2
 
 
 # Cypress Automation Practice
