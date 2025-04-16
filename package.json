@@ -4,7 +4,11 @@
   "description": "Cypress-based automation practice project for testing workflows.",
   "main": "index.js",
   "author": "John Doe",
-  "keywords": ["automation", "practice", "cypress"],
+  "keywords": [
+    "automation",
+    "practice",
+    "cypress"
+  ],
   "license": "ISC",
   "scripts": {
     "start": "node index.js",

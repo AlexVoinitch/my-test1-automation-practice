@@ -19,4 +19,4 @@ This repository contains a basic setup for Cypress automation testing.
 
 * [Git Workflow Strategy](./docs/git-strategy.md)
 * [Essential Hotkeys](./docs/hotkeys.md)
-* 
+*

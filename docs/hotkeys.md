@@ -24,5 +24,5 @@
 * **Open terminal** `Ctrl + \`` (Windows/Linux) / `Cmd + \`` (macOS)
 * **Split editor:** `Ctrl + \` (Windows/Linux) / `Cmd + \` (macOS)
 
-+ refactoring code - use AI assistant right in the code
-+ 
+* **refactoring code** - use AI assistant by right click in the code
+* or **reformat code hotkey**  `Alt + Shift + F`
