@@ -1,7 +1,4 @@
 # my-test1-automation-practice
-test
-+test2
-
 
 # Cypress Automation Practice
 
@@ -20,5 +17,5 @@ This repository contains a basic setup for Cypress automation testing.
 
 ## Documentation
 
-* [Git Workflow Strategy](/docs/git-strategy.md)
-* [Essential Hotkeys](/docs/hotkeys.md)
+* [Git Workflow Strategy](./docs/git-strategy.md)
+* [Essential Hotkeys](./docs/hotkeys.md)

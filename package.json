@@ -1,15 +1,20 @@
 {
   "name": "my-test1-automation-practice",
   "version": "1.0.0",
-  "description": "test",
+  "description": "Cypress-based automation practice project for testing workflows.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "author": "John Doe",
+  "keywords": ["automation", "practice", "cypress"],
   "license": "ISC",
-  "devDependencies": {
+  "scripts": {
+    "start": "node index.js",
+    "test:noop": "echo \"ERROR_MESSAGE\" && exit 1",
+    "test": "cypress open"
+  },
+  "dependencies": {
     "cypress": "^14.2.1"
+  },
+  "constants": {
+    "ERROR_MESSAGE": "Error: no test specified"
   }
 }
