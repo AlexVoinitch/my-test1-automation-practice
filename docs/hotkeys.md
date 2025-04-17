@@ -25,4 +25,4 @@
 * **Split editor:** `Ctrl + \` (Windows/Linux) / `Cmd + \` (macOS)
 
 * **refactoring code** - use AI assistant by right click in the code
-* or **reformat code hotkey**  `Alt + Shift + F`
+* or **reformat code hotkey**  `Shift + Alt + F`
