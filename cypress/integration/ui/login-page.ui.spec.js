@@ -16,8 +16,10 @@ describe('Login Page UI', { testIsolation: false }, () => {
     })
 
     it('And I click the "Login" button', () => {
+      cy.wait(1000);
       cy.get(cy.selectors.loginPage.loginButton).click()
     })
+
 
     it('Then I should be redirected to the home page', () => {
       cy.url().should('eq', cy.urls.homePage)
