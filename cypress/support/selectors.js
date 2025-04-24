@@ -1,6 +1,6 @@
 // cypress/support/selectors.js
 export const loginPage = {
-  usernameInput: '[data-test="user-name"]',
+  usernameInput: '[data-test="username"]',
   passwordInput: '[data-test="password"]',
   loginButton: '[data-test="login-button"]',
   errorMessage: '[data-test="error-button"]',
