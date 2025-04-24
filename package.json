@@ -15,10 +15,10 @@
     "test:noop": "echo \"ERROR_MESSAGE\" && exit 1",
     "test": "cypress open"
   },
-  "dependencies": {
-    "cypress": "^14.2.1"
-  },
   "constants": {
     "ERROR_MESSAGE": "Error: no test specified"
+  },
+  "devDependencies": {
+    "cypress": "^14.3.2"
   }
 }
