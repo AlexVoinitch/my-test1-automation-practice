@@ -1,6 +1,6 @@
 // cypress/support/selectors.js
 export const loginPage = {
-  usernameInput: '[data-test="username"]',
+  usernameInput: '[data-test="user-name"]',
   passwordInput: '[data-test="password"]',
   loginButton: '[data-test="login-button"]',
   errorMessage: '[data-test="error"]', // Селектор для сообщения об ошибке (если есть)
