@@ -13,10 +13,12 @@ describe('Login Page UI', { testIsolation: false }, () => {
     it('When I enter a valid username', () => {
       cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 })
         .should('be.visible')
-        .type(cy.reqs.standardUsername)
+        .then(($usernameInput) => {
+          cy.wrap($usernameInput).type(cy.reqs.standardUsername);
+        });
 
-      cy.get(cy.selectors.loginPage.usernameInput).debug()
-    })
+      cy.get(cy.selectors.loginPage.usernameInput).debug();
+    });
 
     it('And I enter a valid password', () => {
       cy.get(cy.selectors.loginPage.passwordInput).type(cy.reqs.validPassword)
