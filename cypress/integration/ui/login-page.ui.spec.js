@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Login Page UI', { testIsolation: false }, () => {
   beforeEach(() => {
     cy.visit(cy.urls.loginPage);
