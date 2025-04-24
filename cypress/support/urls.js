@@ -1,3 +1,3 @@
-export const urls = {
-  loginPage: 'https://www.saucedemo.com'
-};
+// cypress/support/urls.js
+export const loginPage = '/';
+export const homePage = '/inventory.html';

@@ -1,17 +1,12 @@
-// ***********************************************************
-// This example support/e2e.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
+// cypress/support/e2e.js
+import * as l10n from '../../support/l10n.json';
+import * as reqs from '../../support/requirements.js';
+import * as urls from '../../support/urls.js';
+import * as selectors from '../../support/selectors.js';
 
-// Import commands.js using ES2015 syntax:
-import './commands'
+Cypress.on('test:before:run', () => {
+  cy.l10n = l10n;
+  cy.reqs = reqs;
+  cy.urls = urls;
+  cy.selectors = selectors;
+});
