@@ -6,5 +6,6 @@ module.exports = defineConfig({
     env: {
       environment: 'development',
     },
+    specPattern: 'cypress/integration/**/*.spec.js',
   },
 })
