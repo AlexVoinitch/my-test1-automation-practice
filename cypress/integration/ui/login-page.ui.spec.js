@@ -10,14 +10,23 @@ describe('Login Page UI', { testIsolation: false }, () => {
       cy.url().should('eq', cy.urls.loginPage)
     })
 
-    it('When I enter a valid username and password', () => {
-      cy.get(cy.selectors.loginPage.usernameInput).type(cy.reqs.standardUsername)
-      cy.get(cy.selectors.loginPage.passwordInput).type(cy.reqs.validPassword)
+  //  it('When I enter a valid username and password', () => {
+  //    cy.get(cy.selectors.loginPage.usernameInput).type(cy.reqs.standardUsername)
+  //    cy.get(cy.selectors.loginPage.passwordInput).type(cy.reqs.validPassword)
+  //  })
+
+
+
+    it('When I enter a valid username', () => {
+      cy.get(cy.selectors.loginPage.usernameInput).type(cy.reqs.standardUsername);
+    })
+
+    it('And I enter a valid password', () => {
+      cy.get(cy.selectors.loginPage.passwordInput).type(cy.reqs.validPassword);
     })
 
     it('And I click the "Login" button', () => {
-      cy.wait(1000);
-      cy.get(cy.selectors.loginPage.loginButton).click()
+      cy.get(cy.selectors.loginPage.loginButton).click();
     })
 
 
