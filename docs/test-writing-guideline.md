@@ -1,5 +1,15 @@
 # Test Writing Guideline
 
+## Approach
+- Define clear objectives for each test.
+- Ensure tests are isolated and independent.
+
+## Practical Methods
+- Use descriptive names for test cases.
+- Follow the Arrange-Act-Assert pattern.
+
+
+
 ## Rules:
 
 1. **Naming Conventions**: Follow the established naming conventions.
