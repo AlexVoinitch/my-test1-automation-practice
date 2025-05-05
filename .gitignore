@@ -1,43 +1,19 @@
 node_modules
-package-lock.json
-yarn.lock
 cypress/videos
 cypress/screenshots
 cypress/cache
 cypress/downloads
-cypress/support/e2e.js # Exclude the file with test examples (if not needed)
-**/node_modules
 
 # Logs
-logs
 *.log
 
 # reports
-cypress/reports
-mochawesome-report
-junit.xml
-cypress-multi-reporters
-
-# Temporary files and directories
-tmp
-temp
-.tmp
-
-# Environment variables
-.env
-.env.*
-!.env.example # Allow tracking of sample file .env
+# cypress/reports
 
 # IDE specific files
 .idea
 .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 
 # operating systems
 .DS_Store
 Thumbs.db
-
-
