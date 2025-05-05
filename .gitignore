@@ -1,25 +1,14 @@
 node_modules
-yarn.lock
 cypress/videos
 cypress/screenshots
 cypress/cache
 cypress/downloads
 
 # Logs
-logs
 *.log
 
 # reports
-
-# Temporary files and directories
-tmp
-temp
-.tmp
-
-# Environment variables
-.env
-.env.*
-!.env.example # Allow tracking of sample file .env
+# cypress/reports
 
 # IDE specific files
 .idea
