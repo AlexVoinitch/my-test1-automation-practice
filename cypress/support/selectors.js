@@ -7,5 +7,5 @@ export const loginPage = {
 }
 
 export const homePage = {
-  productTitle: 'title',
+  productTitle: 'span.title',
 }

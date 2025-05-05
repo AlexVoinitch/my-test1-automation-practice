@@ -1,25 +1,22 @@
 /// <reference types="cypress" />
 
 describe('Login Page UI', { testIsolation: false }, () => {
-  beforeEach(() => {
-    cy.visit(cy.urls.loginPage)
-  })
-
   context('As a user, I want to log in with valid credentials', () => {
     it('Given I am on the login page', () => {
+      cy.visit(cy.urls.loginPage)
       cy.url().should('eq', cy.urls.loginPage)
     })
 
-    it('When I enter a valid username', () => {
+    it('When I enter a valid username and password', () => {
       cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 })
         .should('be.visible')
         .type(cy.reqs.standardUsername)
+        .debug('username input после type')
 
-      cy.get(cy.selectors.loginPage.usernameInput).debug()
-    })
-
-    it('And I enter a valid password', () => {
-      cy.get(cy.selectors.loginPage.passwordInput).type(cy.reqs.validPassword)
+      cy.get(cy.selectors.loginPage.passwordInput)
+        .should('be.visible')
+        .type(cy.reqs.validPassword)
+        .debug('password input после type')
     })
 
     it('And I click the "Login" button', () => {
@@ -39,6 +36,7 @@ describe('Login Page UI', { testIsolation: false }, () => {
     'As a user, I want to see an error message when I log in with invalid credentials',
     () => {
       it.skip('Given I am on the login page', () => {
+        cy.visit(cy.urls.loginPage)
         // Not implemented yet
       })
 
@@ -60,6 +58,7 @@ describe('Login Page UI', { testIsolation: false }, () => {
     'As a user, I want to see an error message when I log in with a valid username and an invalid password',
     () => {
       it.skip('Given I am on the login page', () => {
+        cy.visit(cy.urls.loginPage)
         // Not implemented yet
       })
 
@@ -81,6 +80,7 @@ describe('Login Page UI', { testIsolation: false }, () => {
     'As a locked-out user, I want to see a specific error message',
     () => {
       it.skip('Given I am on the login page', () => {
+        cy.visit(cy.urls.loginPage)
         // Not implemented yet
       })
 
@@ -102,6 +102,7 @@ describe('Login Page UI', { testIsolation: false }, () => {
     'As a user, I want to see an error message when I try to log in with empty fields',
     () => {
       it.skip('Given I am on the login page', () => {
+        cy.visit(cy.urls.loginPage)
         // Not implemented yet
       })
 
