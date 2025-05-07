@@ -26,3 +26,5 @@
 
 * **refactoring code** - use AI assistant by right click in the code
 * or **reformat code hotkey**  `Shift + Alt + F`
+
+## Other usefull hotkeys
