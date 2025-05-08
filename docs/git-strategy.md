@@ -1,4 +1,8 @@
-# Git Workflow Strategy
+## Git Strategy
+
+- Direct commits to the `main` branch are prohibited.
+- Each PR requires at least one approver.
+- Only squash merges are allowed.
 
 ## Branching Strategy
 
