@@ -32,3 +32,5 @@ Press Ctrl + Shift + A
 
 ## Go to Definition:
 Press Ctrl + B
+
+## Other usefull hotkeys
