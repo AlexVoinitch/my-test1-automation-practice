@@ -1,126 +1,90 @@
 /// <reference types="cypress" />
 
-describe('Login Page UI', { testIsolation: false }, () => {
-  context('As a user, I want to log in with valid credentials', () => {
-    it('Given I am on the login page', () => {
-      cy.visit(cy.urls.loginPage)
-      cy.url().should('eq', cy.urls.loginPage)
-    })
+// describe block title: PageName.ComponentName: Given 'preconditions'
+describe('LoginPage.UI: Given various login scenarios', { testIsolation: false }, () => {
 
-    it('When I enter a valid username and password', () => {
+  // context block title: PageName.ComponentName.USER_ROLE: When 'condition'
+  context('LoginPage.UI.STANDARD_USER: When logging in with valid credentials', () => {
+    beforeEach(() => {
+      cy.visit(cy.urls.loginPage);
+
       cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 })
-        .should('be.visible')
-        .type(cy.reqs.standardUsername)
-        .debug('username input после type')
+        .should('be.visible');
+      cy.get(cy.selectors.loginPage.usernameInput)
+        .type(cy.reqs.standardUsername);
 
       cy.get(cy.selectors.loginPage.passwordInput)
-        .should('be.visible')
-        .type(cy.reqs.validPassword)
-        .debug('password input после type')
-    })
+        .should('be.visible');
+      cy.get(cy.selectors.loginPage.passwordInput)
+        .type(cy.reqs.validPassword);
 
-    it('And I click the "Login" button', () => {
-      cy.get(cy.selectors.loginPage.loginButton).click()
-    })
+      cy.get(cy.selectors.loginPage.loginButton).click();
+    });
 
-    it('Then I should be redirected to the home page', () => {
-      cy.url().should('eq', cy.urls.homePage)
-    })
-
-    it('And I should see the product list', () => {
-      cy.get(cy.selectors.homePage.productTitle).should('be.visible')
-    })
-  })
+    // it block title: PageName.ComponentName.USER_ROLE: Then 'expected result'
+    it('LoginPage.UI.STANDARD_USER: Then I should be redirected to the products page and see the product list', () => {
+      cy.url().should('eq', cy.urls.homePage);
+      cy.get(cy.selectors.homePage.productTitle).should('be.visible').and('contain', 'Products');
+    });
+  });
 
   context(
-    'As a user, I want to see an error message when I log in with invalid credentials',
+    'LoginPage.UI.INVALID_USER: When logging in with invalid username',
     () => {
-      it.skip('Given I am on the login page', () => {
-        cy.visit(cy.urls.loginPage)
-        // Not implemented yet
-      })
+      beforeEach(() => {
+        cy.visit(cy.urls.loginPage);
+        // ... (Not implemented yet)
+      });
 
-      it.skip('When I enter an invalid username and a valid password', () => {
-        // Not implemented yet
-      })
-
-      it.skip('And I click the "Login" button', () => {
-        // Not implemented yet
-      })
-
-      it.skip('Then I should see an error message indicating incorrect credentials', () => {
-        // Not implemented yet
-      })
+      it.skip('LoginPage.UI.INVALID_USER: Then I should see an error message indicating incorrect credentials', () => {
+        // ... (Not implemented yet)
+      });
     }
-  )
+  );
 
   context(
-    'As a user, I want to see an error message when I log in with a valid username and an invalid password',
+    'LoginPage.UI.INVALID_PASSWORD: When logging in with invalid password',
     () => {
-      it.skip('Given I am on the login page', () => {
-        cy.visit(cy.urls.loginPage)
-        // Not implemented yet
-      })
+      beforeEach(() => {
+        cy.visit(cy.urls.loginPage);
+        // ... (Not implemented yet)
+      });
 
-      it.skip('When I enter a valid username and an invalid password', () => {
-        // Not implemented yet
-      })
-
-      it.skip('And I click the "Login" button', () => {
-        // Not implemented yet
-      })
-
-      it.skip('Then I should see an error message indicating incorrect credentials', () => {
-        // Not implemented yet
-      })
+      it.skip('LoginPage.UI.INVALID_PASSWORD: Then I should see an error message indicating incorrect credentials', () => {
+        // ... (Not implemented yet)
+      });
     }
-  )
+  );
 
   context(
-    'As a locked-out user, I want to see a specific error message',
+    'LoginPage.UI.LOCKED_OUT_USER: When logging in as a locked-out user',
     () => {
-      it.skip('Given I am on the login page', () => {
-        cy.visit(cy.urls.loginPage)
-        // Not implemented yet
-      })
+      beforeEach(() => {
+        cy.visit(cy.urls.loginPage);
+        // ... (Not implemented yet)
+      });
 
-      it.skip('When I enter the username of a locked-out user and any password', () => {
-        // Not implemented yet
-      })
-
-      it.skip('And I click the "Login" button', () => {
-        // Not implemented yet
-      })
-
-      it.skip('Then I should see an error message indicating that the user is locked out', () => {
-        // Not implemented yet
-      })
+      it.skip('LoginPage.UI.LOCKED_OUT_USER: Then I should see an error message indicating that the user is locked out', () => {
+        // ... (Not implemented yet)
+      });
     }
-  )
+  );
 
   context(
-    'As a user, I want to see an error message when I try to log in with empty fields',
+    'LoginPage.UI.EMPTY_FIELDS: When logging in with empty fields',
     () => {
-      it.skip('Given I am on the login page', () => {
-        cy.visit(cy.urls.loginPage)
-        // Not implemented yet
-      })
+      beforeEach(() => {
+        cy.visit(cy.urls.loginPage);
+        // ... (Not implemented yet)
+      });
 
-      it.skip('When I leave the username and password fields empty', () => {
-        // Not implemented yet
-      })
+      it.skip('LoginPage.UI.EMPTY_FIELDS: Then I should see an error message indicating that the username is required', () => {
+        // ... (Not implemented yet)
+      });
 
-      it.skip('And I click the "Login" button', () => {
-        // Not implemented yet
-      })
-
-      it.skip('Then I should see an error message indicating that the username is required', () => {
-        // Not implemented yet
-      })
-
-      it.skip('And I should see an error message indicating that the password is required', () => {
-        // Not implemented yet
-      })
+      it.skip('LoginPage.UI.EMPTY_FIELDS: Then I should see an error message indicating that the password is required', () => {
+        // ... (Not implemented yet)
+      });
     }
-  )
-})
+  );
+});
