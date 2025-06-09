@@ -1,37 +1,31 @@
-/// <reference types="cypress" />
+// cypress/integration/ui/login-page.ui.spec.js
+// / <reference types="cypress" />
 
 // describe block title: PageName.ComponentName: Given 'preconditions'
 describe('LoginPage.UI: Given various login scenarios', { testIsolation: false }, () => {
 
   // context block title: PageName.ComponentName.USER_ROLE: When 'condition'
   context('LoginPage.UI.STANDARD_USER: When logging in with valid credentials', () => {
-    beforeEach(() => {
-      cy.visit(cy.urls.loginPage);
-
-      cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 })
-        .should('be.visible');
-      cy.get(cy.selectors.loginPage.usernameInput)
-        .type(cy.reqs.standardUsername);
-
-      cy.get(cy.selectors.loginPage.passwordInput)
-        .should('be.visible');
-      cy.get(cy.selectors.loginPage.passwordInput)
-        .type(cy.reqs.validPassword);
-
-      cy.get(cy.selectors.loginPage.loginButton).click();
+      before(() => {
+      cy.login(cy.reqs.standardUsername, cy.reqs.validPassword);
     });
 
     // it block title: PageName.ComponentName.USER_ROLE: Then 'expected result'
-    it('LoginPage.UI.STANDARD_USER: Then I should be redirected to the products page and see the product list', () => {
+    it('LoginPage.UI.STANDARD_USER: Then I should be redirected to the products page', () => {
       cy.url().should('eq', cy.urls.homePage);
-      cy.get(cy.selectors.homePage.productTitle).should('be.visible').and('contain', 'Products');
+    });
+
+    it('LoginPage.UI.STANDARD_USER: Then I should see the product list title', () => {
+      cy.get(cy.selectors.homePage.title)
+        .should('be.visible')
+        .and('contain', cy.l10n.productsPage.title);
     });
   });
 
   context(
     'LoginPage.UI.INVALID_USER: When logging in with invalid username',
     () => {
-      beforeEach(() => {
+      before(() => {
         cy.visit(cy.urls.loginPage);
         // ... (Not implemented yet)
       });
@@ -45,7 +39,7 @@ describe('LoginPage.UI: Given various login scenarios', { testIsolation: false }
   context(
     'LoginPage.UI.INVALID_PASSWORD: When logging in with invalid password',
     () => {
-      beforeEach(() => {
+      before(() => {
         cy.visit(cy.urls.loginPage);
         // ... (Not implemented yet)
       });
@@ -59,7 +53,7 @@ describe('LoginPage.UI: Given various login scenarios', { testIsolation: false }
   context(
     'LoginPage.UI.LOCKED_OUT_USER: When logging in as a locked-out user',
     () => {
-      beforeEach(() => {
+      before(() => {
         cy.visit(cy.urls.loginPage);
         // ... (Not implemented yet)
       });
@@ -73,7 +67,7 @@ describe('LoginPage.UI: Given various login scenarios', { testIsolation: false }
   context(
     'LoginPage.UI.EMPTY_FIELDS: When logging in with empty fields',
     () => {
-      beforeEach(() => {
+      before(() => {
         cy.visit(cy.urls.loginPage);
         // ... (Not implemented yet)
       });

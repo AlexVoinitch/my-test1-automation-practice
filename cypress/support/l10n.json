@@ -1,5 +1,8 @@
 {
   "loginButton": "Login",
   "usernamePlaceholder": "Username",
-  "passwordPlaceholder": "Password"
+  "passwordPlaceholder": "Password",
+  "productsPage": {
+    "title": "Products"
+  }
 }
