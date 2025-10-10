@@ -7,7 +7,7 @@
 * **Open command palette** `Ctrl + Shift + P` (Windows/Linux) / `Cmd + Shift + P` (macOS)
 * **Save file** `Ctrl + S` (Windows/Linux) / `Cmd + S` (macOS)
 * **Close tab** `Ctrl + W` (Windows/Linux) / `Cmd + W` (macOS)
- 
+
 ## Editing
 
 * **Comment/uncomment line:** `Ctrl + /` (Windows/Linux) / `Cmd + /` (macOS)
@@ -28,11 +28,9 @@
 * or **reformat code hotkey**  `Shift + Alt + F`
 
 ## Search everywhere in the project:
-
 Press Ctrl + Shift + A
 
 ## Go to Definition:
-
 Press Ctrl + B
 
 ## Other usefull hotkeys
