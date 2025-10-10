@@ -23,10 +23,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('login', (username, password) => {
-  cy.visit(cy.urls.loginPage);
-  cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 })
-    .type(username);
-  cy.get(cy.selectors.loginPage.passwordInput)
-    .type(password);
-  cy.get(cy.selectors.loginPage.loginButton).click();
-});
+  cy.get(cy.selectors.loginPage.usernameInput, { timeout: 10000 }).type(
+    username
+  )
+  cy.get(cy.selectors.loginPage.passwordInput).type(password)
+  cy.get(cy.selectors.loginPage.loginButton).click()
+})
