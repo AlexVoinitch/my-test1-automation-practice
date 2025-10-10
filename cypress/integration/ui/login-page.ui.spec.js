@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 describe(
   'LoginPage: Given valid and invalid user credentials are available',
   { testIsolation: false },
