@@ -10,8 +10,8 @@ describe(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
       () => {
         before(function () {
-          const username = this.userData.standardUsername
-          const password = this.userData.validPassword
+          const username = this.userData.testUsers.valid.username
+          const password = this.userData.testUsers.valid.password
 
           cy.visit(cy.urls.loginPage)
           cy.login(username, password)
