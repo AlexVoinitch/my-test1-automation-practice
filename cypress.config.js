@@ -7,5 +7,6 @@ module.exports = defineConfig({
       environment: 'development',
     },
     specPattern: 'cypress/integration/**/*.spec.js',
+    //slowMo: 500,
   },
 })
