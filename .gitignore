@@ -4,6 +4,9 @@ cypress/screenshots
 cypress/cache
 cypress/downloads
 
+# Credentials and Local Configurations
+/cypress/fixtures/user-data.json
+
 # Logs
 *.log
 
