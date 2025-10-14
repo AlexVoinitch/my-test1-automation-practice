@@ -3,7 +3,7 @@ export const loginPage = {
   usernameInput: '[data-test="username"]',
   passwordInput: '[data-test="password"]',
   loginButton: '[data-test="login-button"]',
-  errorMessage: '[data-test="error-button"]',
+  errorMessage: '[data-test="error"]',
 }
 
 export const homePage = {
@@ -24,4 +24,26 @@ export const inventoryPage = {
 export const cartPage = {
   cartItem: '.cart_item',
   checkoutButton: '[data-test="checkout"]',
+  removeButton: '[data-test^="remove-"]',
+  continueShoppingButton: '[data-test="continue-shopping"]',
+}
+
+export const checkoutInfoPage = {
+  firstNameInput: '[data-test="firstName"]',
+  lastNameInput: '[data-test="lastName"]',
+  postalCodeInput: '[data-test="postalCode"]',
+  continueButton: '[data-test="continue"]',
+}
+
+export const checkoutOverviewPage = {
+  finishButton: '[data-test="finish"]',
+  itemTotal: '.summary_subtotal_label',
+  tax: '.summary_tax_label',
+  total: '.summary_total_label',
+}
+
+export const checkoutCompletePage = {
+  header: '.complete-header',
+  ponyExpressImage: '.pony_express',
+  backHomeButton: '[data-test="back-to-products"]',
 }
