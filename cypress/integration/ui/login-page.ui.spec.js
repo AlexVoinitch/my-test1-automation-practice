@@ -2,15 +2,16 @@ describe(
   'LoginPage: Given valid and invalid user credentials are available',
   { testIsolation: false },
   function () {
+    beforeEach(function () {
+      cy.visit(cy.urls.loginPage)
+    })
     context(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
       function () {
-        before(function () {
+        beforeEach(function () {
           const user = Cypress.env('StandardUser')
           const username = user.username
           const password = user.password
-
-          cy.visit(cy.urls.loginPage)
           cy.login(username, password)
         })
 
@@ -29,11 +30,6 @@ describe(
     context(
       'LoginPage.INVALID_USER: When logging in with invalid username',
       () => {
-        beforeEach(function () {
-          cy.visit(cy.urls.loginPage)
-          // ... (Not implemented yet)
-        })
-
         it.skip('LoginPage.INVALID_USER: Then error is shown for invalid credentials', () => {
           // ... (Not implemented yet)
         })
@@ -43,11 +39,6 @@ describe(
     context(
       'LoginPage.INVALID_PASSWORD: When logging in with invalid password',
       () => {
-        beforeEach(function () {
-          cy.visit(cy.urls.loginPage)
-          // ... (Not implemented yet)
-        })
-
         it.skip('LoginPage.INVALID_PASSWORD: Then error is shown for invalid credentials', () => {
           // ... (Not implemented yet)
         })
@@ -57,30 +48,25 @@ describe(
     context(
       'LoginPage.LOCKED_OUT_USER: When logging in as a locked user',
       () => {
-        beforeEach(function () {
-          cy.visit(cy.urls.loginPage)
-          // ... (Not implemented yet)
-        })
-
         it.skip('LoginPage.LOCKED_OUT_USER: Then error is shown for locked user', () => {
           // ... (Not implemented yet)
         })
       }
     )
 
-    context('LoginPage.EMPTY_FIELDS: When logging in with empty fields', () => {
-      beforeEach(function () {
-        cy.visit(cy.urls.loginPage)
+    context(
+      'LoginPage.EMPTY_FIELDS: When logging in with empty fields',
+      function () {
         // ... (Not implemented yet)
-      })
+      }
+    )
 
-      it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing username', () => {
-        // ... (Not implemented yet)
-      })
+    it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing username', () => {
+      // ... (Not implemented yet)
+    })
 
-      it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing password', () => {
-        // ... (Not implemented yet)
-      })
+    it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing password', () => {
+      // ... (Not implemented yet)
     })
   }
 )
