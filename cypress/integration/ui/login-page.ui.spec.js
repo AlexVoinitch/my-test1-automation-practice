@@ -1,17 +1,14 @@
 describe(
   'LoginPage: Given valid and invalid user credentials are available',
   { testIsolation: false },
-  () => {
-    before(function () {
-      cy.fixture('user-data').as('userData')
-    })
-
+  function () {
     context(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
-      () => {
+      function () {
         before(function () {
-          const username = this.userData.testUsers.valid.username
-          const password = this.userData.testUsers.valid.password
+          const user = Cypress.env('StandardUser')
+          const username = user.username
+          const password = user.password
 
           cy.visit(cy.urls.loginPage)
           cy.login(username, password)

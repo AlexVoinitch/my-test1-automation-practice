@@ -7,12 +7,13 @@ export const loginPage = {
 }
 
 export const homePage = {
-  title: 'span.title',
+  title: '.title',
 }
 
 export const inventoryPage = {
   headerContainer: '.header_container',
-  sortDropdown: 'select[data-test="product-sort-container"]', // TODO: link to the Bug -> https://github.com/AlexVoinitch/my-test1-automation-practice/issues/10
+  title: '.title',
+  sortDropdown: '[data-test="product-sort-container"]', // TODO: link to the Bug -> https://github.com/AlexVoinitch/my-test1-automation-practice/issues/10
   inventoryItem: '.inventory_item',
   addToCartButton: '.btn_primary',
   removeButton: '.btn_secondary',
