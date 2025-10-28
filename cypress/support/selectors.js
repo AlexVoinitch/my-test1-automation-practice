@@ -1,16 +1,17 @@
 // cypress/support/selectors.js
-export const loginPage = {
+
+const loginPage = {
   usernameInput: '[data-test="username"]',
   passwordInput: '[data-test="password"]',
   loginButton: '[data-test="login-button"]',
   errorMessage: '[data-test="error-button"]',
 }
 
-export const homePage = {
+const homePage = {
   title: '.title',
 }
 
-export const inventoryPage = {
+const inventoryPage = {
   headerContainer: '.header_container',
   title: '.title',
   sortDropdown: '[data-test="product-sort-container"]', // TODO: link to the Bug -> https://github.com/AlexVoinitch/my-test1-automation-practice/issues/10
@@ -22,7 +23,14 @@ export const inventoryPage = {
   logout: '#logout_sidebar_link',
 }
 
-export const cartPage = {
+const cartPage = {
   cartItem: '.cart_item',
   checkoutButton: '[data-test="checkout"]',
+}
+
+export default {
+  cartPage,
+  inventoryPage,
+  loginPage,
+  homePage
 }
