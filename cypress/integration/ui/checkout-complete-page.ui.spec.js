@@ -1,43 +1,45 @@
 describe(
-  'E2E Flow: Checkout Complete Page',
+  'CheckoutCompletePage: Given a user has successfully completed an order',
   { testIsolation: false },
   function () {
     before(function () {
-      cy.fixture('user-data').as('userData')
-    })
+      this.user = Cypress.env('StandardUser')
+      this.checkoutData = Cypress.env('CheckoutData')
+      const data = this.checkoutData
 
-    before(function () {
       cy.clearLocalStorage()
-      const user = this.userData.testUsers.valid
-      const checkout = this.userData.checkoutData
-      cy.visit(cy.urls.loginPage)
+      cy.visit(urls.loginPage)
+      cy.login(this.user.username, this.user.password)
 
-      cy.get(cy.selectors.loginPage.usernameInput).clear().type(user.username)
-      cy.get(cy.selectors.loginPage.passwordInput).clear().type(user.password)
+      cy.get(inventoryPage.addToCartButton).first().click()
+      cy.get(inventoryPage.cartBadge).click()
+      cy.get(cartPage.checkoutButton).click()
 
-      cy.get(cy.selectors.loginPage.loginButton).click()
-      cy.url().should('include', 'inventory.html')
+      cy.get(checkoutInfoPage.firstNameInput).type(data.firstName)
+      cy.get(checkoutInfoPage.lastNameInput).type(data.lastName)
+      cy.get(checkoutInfoPage.postalCodeInput).type(data.postalCode)
+      cy.get(checkoutInfoPage.continueButton).click()
 
-      cy.get(cy.selectors.inventoryPage.addToCartButton).first().click()
-      cy.get(cy.selectors.inventoryPage.cartBadge).click()
-      cy.get(cy.selectors.cartPage.checkoutButton).click()
-      cy.get(cy.selectors.checkoutInfoPage.firstNameInput).type(
-        checkout.firstName
-      )
-      cy.get(cy.selectors.checkoutInfoPage.lastNameInput).type(
-        checkout.lastName
-      )
-      cy.get(cy.selectors.checkoutInfoPage.postalCodeInput).type(
-        checkout.postalCode
-      )
-      cy.get(cy.selectors.checkoutInfoPage.continueButton).click()
-      cy.get(cy.selectors.checkoutOverviewPage.finishButton).click()
+      cy.get(checkoutOverviewPage.finishButton).click()
+
       cy.url().should('include', 'checkout-complete.html')
     })
 
-    context('Verification of order completion', function () {
-      it('CheckoutComplete.Verify: User sees confirmation message and navigates back to inventory', function () {
-        cy.get(cy.selectors.checkoutCompletePage.header).should('be.visible')
+    context(
+      'CheckoutCompletePage: When user is redirected to the confirmation page',
+      function () {
+        it('CheckoutCompletePage.Verify: Then the confirmation header is displayed', function () {
+          cy.get(checkoutCompletePage.header).should('be.visible')
+        })
+      }
+    )
+
+    context('CheckoutCompletePage: When user clicks "Back Home"', function () {
+      before(function () {
+        cy.get(checkoutCompletePage.backHomeButton).click()
+      })
+      it('CheckoutCompletePage.Navigation: Then the user navigates back to the Inventory page', function () {
+        cy.url().should('include', urls.homePage)
       })
     })
   }

@@ -1,10 +1,14 @@
 // cypress/support/e2e.js
 
-import * as l10n from './l10n.json'
-import * as urls from './urls.js'
-import * as selectors from './selectors.js'
+import l10n from './l10n.json'
+import urls from './urls.js'
+import selectors from './selectors.js'
 import './commands'
 
-cy.urls = urls
-cy.selectors = selectors
-cy.l10n = l10n
+global.inventoryPage = selectors.inventoryPage
+global.loginPage = selectors.loginPage
+global.cartPage = selectors.cartPage
+global.homePage = selectors.homePage
+
+global.urls = urls
+global.l10n = l10n

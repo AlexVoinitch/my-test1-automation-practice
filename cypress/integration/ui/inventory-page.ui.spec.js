@@ -1,78 +1,103 @@
 describe(
-  'InventoryPage: Standard user is logged in',
+  'InventoryPage: Given Standard user is logged in',
   { testIsolation: false },
-  () => {
+  function () {
     before(function () {
-      cy.fixture('user-data').as('userData')
+      this.user = Cypress.env('StandardUser')
+      cy.clearLocalStorage()
+      cy.visit(urls.loginPage)
     })
 
-    before(function () {
-      const username = this.userData.testUsers.valid.username
-      const password = this.userData.testUsers.valid.password
-
-      cy.visit(cy.urls.loginPage)
-      cy.login(username, password)
-
-      cy.url().should('include', cy.urls.homePage)
-
-      cy.get(cy.selectors.inventoryPage.sortDropdown).should('be.visible')
-    })
-
-    context('Filtering products', () => {
-      it('Inventory.Sorting: Products are sorted correctly by Name (Z to A)', () => {
-        cy.get(cy.selectors.inventoryPage.sortDropdown).select('za')
-
-        cy.get(cy.selectors.inventoryPage.inventoryItem)
-          .first()
-          .find('.inventory_item_name')
-          .should('have.text', 'Test.allTheThings() T-Shirt (Red)')
-
-        cy.get(cy.selectors.inventoryPage.inventoryItem)
-          .eq(1)
-          .find('.inventory_item_name')
-          .should('have.text', 'Sauce Labs Onesie')
-      })
-    })
-    //
-    context('Adding and verifying items in the cart', () => {
-      beforeEach(function () {
-        cy.clearLocalStorage()
-        const userData = this.userData.testUsers.valid
-        cy.visit(cy.urls.loginPage)
-        cy.login(userData.username, userData.password)
-        cy.url().should('include', cy.urls.homePage)
+    context('InventoryPage: When user logged in', function () {
+      before(function () {
+        cy.login(this.user.username, this.user.password)
       })
 
-      it('Inventory.Cart: User can add item to cart and badge updates', () => {
-        cy.get(cy.selectors.inventoryPage.addToCartButton).first().click()
-        cy.get(cy.selectors.inventoryPage.removeButton)
-          .first()
-          .should('be.visible')
-        cy.get(cy.selectors.inventoryPage.cartBadge).should('have.text', '1')
+      context(
+        'InventoryPage: When the user views the product list',
+        function () {
+          it('InventoryPage: Then the product list title is visible', () => {
+            cy.get(inventoryPage.title)
+              .should('be.visible')
+              .and('have.text', l10n.productsPage.title)
+          })
+          it('InventoryPage: Then the sort dropdown is displayed', () => {
+            cy.get(inventoryPage.sortDropdown).should('be.visible')
+          })
+        }
+      )
 
-        cy.get(cy.selectors.inventoryPage.addToCartButton).eq(1).click()
-        cy.get(cy.selectors.inventoryPage.cartBadge).should('have.text', '2')
+      context(
+        'InventoryPage.Sorting: When sorting products by Name (Z to A)',
+        function () {
+          before(function () {
+            cy.get(inventoryPage.sortDropdown).select('za')
+          })
+
+          it('InventoryPage.Sorting: Then the first product is sorted correctly', () => {
+            cy.get(inventoryPage.inventoryItem)
+              .first()
+              .find('.inventory_item_name')
+              .should('have.text', 'Test.allTheThings() T-Shirt (Red)')
+          })
+          it('InventoryPage.Sorting: Then the second product is sorted correctly', () => {
+            cy.get(inventoryPage.inventoryItem)
+              .eq(1)
+              .find('.inventory_item_name')
+              .should('have.text', 'Sauce Labs Onesie')
+          })
+        }
+      )
+
+      context('InventoryPage.Cart: When adding items to the cart', function () {
+        before(function () {
+          cy.clearLocalStorage()
+          cy.visit(urls.homePage)
+        })
+
+        before(function () {
+          cy.get(inventoryPage.addToCartButton).first().click()
+        })
+
+        it('Inventory.Cart: Then the Remove button is visible on the first item', () => {
+          cy.get(inventoryPage.removeButton).first().should('be.visible')
+        })
+        it('Inventory.Cart: Then the cart badge number is one', () => {
+          cy.get(inventoryPage.cartBadge).should('have.text', '1')
+        })
+
+        context('When a second item is added', function () {
+          before(function () {
+            cy.get(inventoryPage.addToCartButton).eq(1).click()
+          })
+          it('Inventory.Cart: Then the cart badge number is two', () => {
+            cy.get(inventoryPage.cartBadge).should('have.text', '2')
+          })
+        })
+
+        context('When the first item is removed', function () {
+          before(function () {
+            cy.get(inventoryPage.removeButton).first().click()
+          })
+          it('Inventory.Cart: Then the Add to Cart button is visible on the first item', () => {
+            cy.get(inventoryPage.addToCartButton).first().should('be.visible')
+          })
+          it('Inventory.Cart: Then the cart badge no longer exists', () => {
+            cy.get(inventoryPage.cartBadge).should('not.exist')
+          })
+        })
       })
 
-      it('Inventory.Cart: User can remove item from the cart', () => {
-        cy.get(cy.selectors.inventoryPage.addToCartButton).first().click()
-        cy.get(cy.selectors.inventoryPage.cartBadge).should('have.text', '1')
-        cy.get(cy.selectors.inventoryPage.removeButton).first().click()
+      context('InventoryPage.Logout: When the user logs out', function () {
+        before(function () {
+          cy.get(inventoryPage.sidebarButton).click()
+          cy.get(inventoryPage.logout).click()
+        })
 
-        cy.get(cy.selectors.inventoryPage.addToCartButton)
-          .first()
-          .should('be.visible')
-
-        cy.get(cy.selectors.inventoryPage.cartBadge).should('not.exist')
-      })
-    })
-
-    context('Logout functionality', () => {
-      it('Inventory.Logout: User can successfully logout and return to login page', () => {
-        cy.get(cy.selectors.inventoryPage.sidebarButton).click()
-        cy.get('#logout_sidebar_link').click()
-        cy.url().should('eq', Cypress.config('baseUrl') + cy.urls.loginPage)
-        cy.get(cy.selectors.loginPage.loginButton).should('be.visible')
+        it('Inventory.Logout: Then user is redirected to the login page', () => {
+          cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage)
+          cy.get(loginPage.loginButton).should('be.visible')
+        })
       })
     })
   }

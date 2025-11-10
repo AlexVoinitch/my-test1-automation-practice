@@ -14,8 +14,8 @@
     }
   },
   "checkoutData": {
-    "firstName": "Alexei",
-    "lastName": "Voinitch",
-    "postalCode": "51-114"
+    "firstName": "SomeFirstName",
+    "lastName": "SomeLastName",
+    "postalCode": "12-345"
   }
 }

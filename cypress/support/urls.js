@@ -1,4 +1,8 @@
 // cypress/support/urls.js
-export const loginPage = '/'
-export const homePage = '/inventory.html'
-export const cartPage = '/cart.html'
+const urls = {
+  loginPage: '/',
+  homePage: '/inventory.html',
+  cartPage: '/cart.html',
+}
+
+export default urls
