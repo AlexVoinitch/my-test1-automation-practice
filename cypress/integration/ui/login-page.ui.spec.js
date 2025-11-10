@@ -3,7 +3,7 @@ describe(
   { testIsolation: false },
   function () {
     beforeEach(function () {
-      cy.visit(cy.urls.loginPage)
+      cy.visit(urls.loginPage)
     })
     context(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
@@ -16,13 +16,13 @@ describe(
         })
 
         it('LoginPage.STANDARD_USER: Then user is redirected to products page', () => {
-          cy.url().should('include', cy.urls.homePage)
+          cy.url().should('include', urls.homePage)
         })
 
         it('LoginPage.STANDARD_USER: Then product list title is visible', () => {
-          cy.get(cy.selectors.homePage.title)
+          cy.get(homePage.title)
             .should('be.visible')
-            .and('have.text', cy.l10n.productsPage.title)
+            .and('have.text', l10n.productsPage.title)
         })
       }
     )
@@ -57,16 +57,14 @@ describe(
     context(
       'LoginPage.EMPTY_FIELDS: When logging in with empty fields',
       function () {
-        // ... (Not implemented yet)
+        it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing username', () => {
+          // ... (Not implemented yet)
+        })
+
+        it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing password', () => {
+          // ... (Not implemented yet)
+        })
       }
     )
-
-    it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing username', () => {
-      // ... (Not implemented yet)
-    })
-
-    it.skip('LoginPage.EMPTY_FIELDS: Then error is shown for missing password', () => {
-      // ... (Not implemented yet)
-    })
   }
 )
