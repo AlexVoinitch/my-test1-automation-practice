@@ -3,15 +3,23 @@ describe(
   { testIsolation: false },
   function () {
     before(function () {
+      this.user = Cypress.env('StandardUser')
+
+      if (!this.user) {
+        throw new Error(
+          "Cypress.env('StandardUser') is undefined. Check cypress.config.js."
+        )
+      }
+
       cy.visit(urls.loginPage)
     })
+
     context(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
       function () {
         before(function () {
-          const user = Cypress.env('StandardUser')
-          const username = user.username
-          const password = user.password
+          const username = this.user.username
+          const password = this.user.password
           cy.login(username, password)
         })
 

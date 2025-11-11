@@ -1,13 +1,7 @@
 const { defineConfig } = require('cypress')
 const fs = require('fs')
-const path = require('path')
 
-const USERS_FILE = path.resolve(
-  __dirname,
-  'cypress',
-  'sensitive-data',
-  'env-users.json'
-)
+const USERS_FILE = 'cypress/sensitive-data/env-users.json'
 
 module.exports = defineConfig({
   e2e: {
