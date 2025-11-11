@@ -49,56 +49,70 @@ describe(
         }
       )
 
-      context('InventoryPage.Cart: When adding items to the cart', function () {
-        before(function () {
-          cy.clearLocalStorage()
-          cy.visit(urls.homePage)
-        })
-
-        before(function () {
-          cy.get(inventoryPage.addToCartButton).first().click()
-        })
-
-        it('Inventory.Cart: Then the Remove button is visible on the first item', () => {
-          cy.get(inventoryPage.removeButton).first().should('be.visible')
-        })
-        it('Inventory.Cart: Then the cart badge number is one', () => {
-          cy.get(inventoryPage.cartBadge).should('have.text', '1')
-        })
-
-        context('When a second item is added', function () {
+      context(
+        'InventoryPage.STANDARD_USER: When adding items to the cart',
+        function () {
           before(function () {
-            cy.get(inventoryPage.addToCartButton).eq(1).click()
+            cy.clearLocalStorage()
+            cy.visit(urls.homePage)
           })
-          it('Inventory.Cart: Then the cart badge number is two', () => {
-            cy.get(inventoryPage.cartBadge).should('have.text', '2')
-          })
-        })
 
-        context('When the first item is removed', function () {
           before(function () {
-            cy.get(inventoryPage.removeButton).first().click()
+            cy.get(inventoryPage.addToCartButton).first().click()
           })
-          it('Inventory.Cart: Then the Add to Cart button is visible on the first item', () => {
-            cy.get(inventoryPage.addToCartButton).first().should('be.visible')
-          })
-          it('Inventory.Cart: Then the cart badge no longer exists', () => {
-            cy.get(inventoryPage.cartBadge).should('not.exist')
-          })
-        })
-      })
 
-      context('InventoryPage.Logout: When the user logs out', function () {
-        before(function () {
-          cy.get(inventoryPage.sidebarButton).click()
-          cy.get(inventoryPage.logout).click()
-        })
+          it('InventoryPage: Then the Remove button is visible on the first item', () => {
+            cy.get(inventoryPage.removeButton).first().should('be.visible')
+          })
+          it('InventoryPage: Then the cart badge number is one', () => {
+            cy.get(inventoryPage.cartBadge).should('have.text', '1')
+          })
 
-        it('Inventory.Logout: Then user is redirected to the login page', () => {
-          cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage)
-          cy.get(loginPage.loginButton).should('be.visible')
-        })
-      })
+          context(
+            'InventoryPage.STANDARD_USER: When adding second product to the cart',
+            function () {
+              before(function () {
+                cy.get(inventoryPage.addToCartButton).eq(1).click()
+              })
+              it('InventoryPage: Then the cart badge number is two', () => {
+                cy.get(inventoryPage.cartBadge).should('have.text', '2')
+              })
+            }
+          )
+
+          context(
+            'Inventory.Cart.STANDARD_USER: When user clicks remove button the first cart',
+            function () {
+              before(function () {
+                cy.get(inventoryPage.removeButton).first().click()
+              })
+              it('Inventory.Cart: Then the Add to Cart button is visible on the first item', () => {
+                cy.get(inventoryPage.addToCartButton)
+                  .first()
+                  .should('be.visible')
+              })
+              it('Inventory.Cart: Then the cart badge no longer exists', () => {
+                cy.get(inventoryPage.cartBadge).should('not.exist')
+              })
+            }
+          )
+        }
+      )
+
+      context(
+        'Inventory.Logout.STANDARD_USER: Logout functionality',
+        function () {
+          before(function () {
+            cy.get(inventoryPage.sidebarButton).click()
+            cy.get(inventoryPage.logout).click()
+          })
+
+          it('Inventory.Logout: Then user is redirected to the login page', () => {
+            cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage)
+            cy.get(loginPage.loginButton).should('be.visible')
+          })
+        }
+      )
     })
   }
 )

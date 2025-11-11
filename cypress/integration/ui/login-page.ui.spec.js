@@ -32,7 +32,7 @@ describe(
     context(
       'LoginPage.INVALID_USER: When logging in with invalid username',
       function () {
-        beforeEach(function () {
+        before(function () {
           const invalidUsername = this.userData.testUsers.invalid.username
           const validPassword = this.userData.testUsers.valid.password
           cy.visit(cy.urls.loginPage)
@@ -51,7 +51,7 @@ describe(
     context(
       'LoginPage.INVALID_PASSWORD: When logging in with invalid password',
       function () {
-        beforeEach(function () {
+        before(function () {
           const validUsername = this.userData.testUsers.valid.username
           const invalidPassword = this.userData.testUsers.invalid.password
           cy.visit(cy.urls.loginPage)
@@ -70,7 +70,7 @@ describe(
     context(
       'LoginPage.LOCKED_OUT_USER: When logging in as a locked user',
       function () {
-        beforeEach(function () {
+        before(function () {
           const lockedUsername = this.userData.testUsers.lockedOutUser.username
           const password = this.userData.testUsers.lockedOutUser.password
 
@@ -91,7 +91,7 @@ describe(
     context(
       'LoginPage.EMPTY_FIELDS: When logging in with empty fields',
       function () {
-        beforeEach(function () {
+        before(function () {
           cy.visit(cy.urls.loginPage)
         })
 
