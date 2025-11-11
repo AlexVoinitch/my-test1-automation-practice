@@ -32,5 +32,5 @@ export default {
   cartPage,
   inventoryPage,
   loginPage,
-  homePage
+  homePage,
 }

@@ -41,20 +41,23 @@ describe(
       }
     )
 
-    context('InventoryPage: When adding items in the cart', function () {
-      before(() => {
-        cy.get(inventoryPage.addToCartButton).first().click()
-      })
-      it('Inventory.Cart: Then Remove button on the cart is displayed', () => {
-        cy.get(inventoryPage.removeButton).first().should('be.visible')
-      })
-      it('Inventory.Cart: Then badge number on the cart icon is one', () => {
-        cy.get(inventoryPage.cartBadge).should('have.text', '1')
-      })
-    })
+    context(
+      'InventoryPage.STANDARD_USER: When adding items in the cart',
+      function () {
+        before(() => {
+          cy.get(inventoryPage.addToCartButton).first().click()
+        })
+        it('Inventory.Cart: Then Remove button on the cart is displayed', () => {
+          cy.get(inventoryPage.removeButton).first().should('be.visible')
+        })
+        it('Inventory.Cart: Then badge number on the cart icon is one', () => {
+          cy.get(inventoryPage.cartBadge).should('have.text', '1')
+        })
+      }
+    )
 
     context(
-      'InventoryPage: When adding second product to the cart',
+      'InventoryPage.STANDARD_USER: When adding second product to the cart',
       function () {
         before(function () {
           cy.get(inventoryPage.addToCartButton).eq(1).click()
@@ -66,7 +69,7 @@ describe(
     )
 
     context(
-      'InventoryPage: When user clicks remove button the first cart',
+      'InventoryPage.STANDARD_USER: When user clicks remove button the first cart',
       function () {
         before(function () {
           cy.get(inventoryPage.removeButton).first().click()
@@ -80,15 +83,18 @@ describe(
       }
     )
 
-    context.skip('Logout functionality', function () {
-      before(function () {
-        cy.get(inventoryPage.sidebarButton).click()
-        cy.get('#logout_sidebar_link').click()
-      })
-      it.skip('Inventory.Logout: User can successfully logout and return to login page', () => {
-        cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage)
-        cy.get(loginPage.loginButton).should('be.visible')
-      })
-    })
+    context.skip(
+      'InventoryPage.STANDARD_USER: Logout functionality',
+      function () {
+        before(function () {
+          cy.get(inventoryPage.sidebarButton).click()
+          cy.get('#logout_sidebar_link').click()
+        })
+        it.skip('Inventory.Logout: User can successfully logout and return to login page', () => {
+          cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage)
+          cy.get(loginPage.loginButton).should('be.visible')
+        })
+      }
+    )
   }
 )

@@ -2,13 +2,13 @@ describe(
   'LoginPage: Given valid and invalid user credentials are available',
   { testIsolation: false },
   function () {
-    beforeEach(function () {
+    before(function () {
       cy.visit(urls.loginPage)
     })
     context(
       'LoginPage.STANDARD_USER: When logging in with valid credentials',
       function () {
-        beforeEach(function () {
+        before(function () {
           const user = Cypress.env('StandardUser')
           const username = user.username
           const password = user.password
