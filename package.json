@@ -13,7 +13,10 @@
   "scripts": {
     "test": "cypress open"
   },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
   "dependencies": {
-    "cypress": "^14.2.1"
+    "cypress": "^15.6.0"
   }
 }
