@@ -4,7 +4,7 @@ const loginPage = {
   usernameInput: '[data-test="username"]',
   passwordInput: '[data-test="password"]',
   loginButton: '[data-test="login-button"]',
-  errorMessage: '[data-test="error-button"]',
+  errorMessage: '[data-test="error"]',
 }
 
 const homePage = {
