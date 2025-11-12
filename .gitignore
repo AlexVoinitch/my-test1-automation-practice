@@ -3,9 +3,12 @@ cypress/videos
 cypress/screenshots
 cypress/cache
 cypress/downloads
+cypress/sensitive-data/env-users.json
 
-# Credentials and Local Configurations
-/cypress/fixtures/user-data.json
+# sensitive data
+cypress/sensitive-data/**
+!cypress/sensitive-data/env-users.example.json
+
 
 # Logs
 *.log
