@@ -27,6 +27,11 @@
 * **refactoring code** - use AI assistant by right click in the code
 * or **reformat code hotkey**  `Shift + Alt + F`
 
+## Other usefull hotkeys
+
+* **refactoring code** - use AI assistant by right click in the code
+* or **reformat code hotkey**  `Shift + Alt + F`
+
 ## Search everywhere in the project:
 
 Press Ctrl + Shift + A
