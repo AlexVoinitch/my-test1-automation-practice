@@ -5,7 +5,8 @@ describe('InventoryPage: Given Standard user is logged in', { testIsolation: fal
     cy.userManagement__getUserDataByRole(userRoles.STANDARD).then((user) => {
       standardUser = user;
     });
-    cy.visit(urls.loginPage);
+    cy.clearLocalStorage();
+    cy.visit(appUrls.loginPage);
   });
 
   context('InventoryPage.STANDARD_USER: When user logged in', function () {
@@ -69,7 +70,7 @@ describe('InventoryPage: Given Standard user is logged in', { testIsolation: fal
       cy.get('#logout_sidebar_link').click();
     });
     it.skip('InventoryPage.Logout.STANDARD_USER: User can successfully logout and return to login page', () => {
-      cy.url().should('eq', Cypress.config('baseUrl') + urls.loginPage);
+      cy.url().should('eq', Cypress.config('baseUrl') + appUrls.loginPage);
       cy.get(loginPage.loginButton).should('be.visible');
     });
   });

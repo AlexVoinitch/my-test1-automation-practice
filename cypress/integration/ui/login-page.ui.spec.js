@@ -13,7 +13,7 @@ describe('LoginPage: Given valid and invalid user credentials are available', { 
 
   context('LoginPage.STANDARD_USER: When logging in with invalid username', function () {
     before(function () {
-      cy.visit(urls.loginPage);
+      cy.visit(appUrls.loginPage);
       cy.loginPage__login({ username: 'userNotFound', password: standardUser.password });
     });
     it('LoginPage.STANDARD_USER: Error is shown for invalid credentials', function () {
@@ -62,7 +62,7 @@ describe('LoginPage: Given valid and invalid user credentials are available', { 
       cy.loginPage__login(standardUser);
     });
     it('LoginPage.STANDARD_USER: Then user is redirected to products page', function () {
-      cy.url().should('include', urls.homePage);
+      cy.url().should('include', appUrls.homePage);
     });
     it('LoginPage.STANDARD_USER: Then product list title is visible', function () {
       cy.get(homePage.title).should('be.visible').and('have.text', l10n.productsPage.title);

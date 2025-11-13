@@ -3,7 +3,7 @@ cypress/videos
 cypress/screenshots
 cypress/cache
 cypress/downloads
-cypress/sensitive-data/env-users.json
+cypress/sensitive-data/dev-users.json
 
 # sensitive data
 cypress/sensitive-data/**
