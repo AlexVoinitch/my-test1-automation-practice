@@ -1,15 +1,14 @@
+import checkoutData from '../../support/test-data/checkout-data.js';
+
 describe('CheckoutInfoPage: Given a STANDARD_USER is on the Checkout Step One page', { testIsolation: false }, function () {
   before(function () {
-    cy.fixture('checkout-data.json').then((data) => {
-      this.checkoutData = data;
-    });
+    this.checkoutData = checkoutData;
 
     cy.userManagement__getUserDataByRole(userRoles.STANDARD)
       .then((user) => {
         this.standardUser = user;
       })
       .then(() => {
-        //const data = this.checkoutData; // this was the error cause
         const standardUser = this.standardUser;
 
         cy.clearLocalStorage();
@@ -19,7 +18,7 @@ describe('CheckoutInfoPage: Given a STANDARD_USER is on the Checkout Step One pa
         cy.get(inventoryPage.addToCartButton).first().click();
         cy.get(inventoryPage.cartBadge).click();
         cy.get(cartPage.checkoutButton).click();
-        cy.url().should('include', 'checkout-step-one.html');
+        cy.url().should('include', appUrls.checkoutStepOne);
       });
   });
 
@@ -33,7 +32,7 @@ describe('CheckoutInfoPage: Given a STANDARD_USER is on the Checkout Step One pa
     });
 
     it('CheckoutInfoPage.FillForm.STANDARD_USER: Then user is redirected to the Checkout Step Two page', function () {
-      cy.url().should('include', 'checkout-step-two.html');
+      cy.url().should('include', appUrls.checkoutStepTwo);
     });
   });
 });

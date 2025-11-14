@@ -15,5 +15,5 @@ global.checkoutInfoPage = selectors.checkoutInfoPage;
 global.checkoutOverviewPage = selectors.checkoutOverviewPage;
 global.checkoutCompletePage = selectors.checkoutCompletePage;
 
-global.appUrls = urls; // changed from "global.urls" to "global.appUrls" and same change in all linked tests files
+global.appUrls = urls;
 global.l10n = l10n;

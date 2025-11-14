@@ -1,8 +1,8 @@
+import checkoutData from '../../support/test-data/checkout-data.js';
+
 describe('CheckoutOverviewPage: Given a STANDARD_USER is on the Checkout Step Two (Overview) page', { testIsolation: false }, function () {
   before(function () {
-    cy.fixture('checkout-data.json').then((data) => {
-      this.checkoutData = data;
-    });
+    this.checkoutData = checkoutData;
     cy.userManagement__getUserDataByRole(userRoles.STANDARD)
       .then((user) => {
         this.standardUser = user;
@@ -17,14 +17,14 @@ describe('CheckoutOverviewPage: Given a STANDARD_USER is on the Checkout Step Tw
         cy.get(inventoryPage.addToCartButton).first().click();
         cy.get(inventoryPage.cartBadge).click();
         cy.get(cartPage.checkoutButton).click();
-        cy.url().should('include', 'checkout-step-one.html');
+        cy.url().should('include', appUrls.checkoutStepOne);
 
         cy.get(checkoutInfoPage.firstNameInput).type(data.firstName);
         cy.get(checkoutInfoPage.lastNameInput).type(data.lastName);
         cy.get(checkoutInfoPage.postalCodeInput).type(data.postalCode);
         cy.get(checkoutInfoPage.continueButton).click();
 
-        cy.url().should('include', 'checkout-step-two.html');
+        cy.url().should('include', appUrls.checkoutStepTwo);
       });
   });
   context('CheckoutOverviewPage.STANDARD_USER: When user verifies the order summary', function () {
@@ -39,7 +39,7 @@ describe('CheckoutOverviewPage: Given a STANDARD_USER is on the Checkout Step Tw
     });
 
     it('CheckoutOverviewPage.Finish.STANDARD_USER: Then user is redirected to the Checkout Complete page', function () {
-      cy.url().should('include', 'checkout-complete.html');
+      cy.url().should('include', appUrls.checkoutComplete);
     });
   });
 });
