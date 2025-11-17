@@ -1,4 +1,5 @@
 // cypress/support/e2e.js
+
 import userRoles from './user-roles.js';
 import l10n from './l10n.json';
 import urls from './urls.js';
@@ -10,6 +11,9 @@ global.inventoryPage = selectors.inventoryPage;
 global.loginPage = selectors.loginPage;
 global.cartPage = selectors.cartPage;
 global.homePage = selectors.homePage;
+global.checkoutInfoPage = selectors.checkoutInfoPage;
+global.checkoutOverviewPage = selectors.checkoutOverviewPage;
+global.checkoutCompletePage = selectors.checkoutCompletePage;
 
-global.urls = urls;
+global.appUrls = urls;
 global.l10n = l10n;

@@ -1,0 +1,21 @@
+{
+  "testUsers": {
+    "valid": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "lockedOutUser": {
+      "username": "locked_out_user",
+      "password": "secret_sauce"
+    },
+    "invalid": {
+      "username": "non_existent_user",
+      "password": "wrong_password"
+    }
+  },
+  "checkoutData": {
+    "firstName": "SomeFirstName",
+    "lastName": "SomeLastName",
+    "postalCode": "12-345"
+  }
+}

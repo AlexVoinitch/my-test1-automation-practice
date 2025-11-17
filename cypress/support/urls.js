@@ -1,8 +1,11 @@
 // cypress/support/urls.js
-const loginPage = '/'
-const homePage = '/inventory.html'
+const urls = {
+  loginPage: '/',
+  homePage: '/inventory.html',
+  cartPage: '/cart.html',
+  checkoutStepOne: '/checkout-step-one.html',
+  checkoutStepTwo: '/checkout-step-two.html',
+  checkoutComplete: '/checkout-complete.html',
+};
 
-export default {
-  loginPage,
-  homePage,
-}
+export default urls;

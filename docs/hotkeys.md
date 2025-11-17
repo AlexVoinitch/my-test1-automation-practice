@@ -35,6 +35,8 @@
 ## Search everywhere in the project:
 
 Press Ctrl + Shift + A
+Press Ctrl + Shift + F  - search in files
+Press Ctrl + Shift + H  - search and replace in all files
 
 ## Go to Definition:
 
