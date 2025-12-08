@@ -1,0 +1,78 @@
+// cypress/integration/api/booking.api.spec.js
+
+describe('Booking Endpoint: Full CRUD Cycle', function () {
+  let newBookingId;
+  let testData;
+
+  before(function () {
+    cy.api__getAuthToken();
+    cy.fixture('booking-data').then((data) => {
+      testData = data;
+    });
+  });
+
+  context('Booking POST: Create Booking (Positive & Negative)', function () {
+    it('should successfully create a new booking', function () {
+      cy.api__createBooking(testData.validBookingData).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.have.property('bookingid').to.be.a('number');
+
+        newBookingId = response.body.bookingid;
+
+        expect(response.body.booking.firstname).to.eq(testData.validBookingData.firstname);
+      });
+    });
+
+    it('should return 500 when creating booking with invalid dates (Negative)', function () {
+      const invalidBody = {
+        ...testData.validBookingData,
+        bookingdates: { checkin: '2025-10-05', checkout: '2025-10-01' },
+      };
+
+      cy.api__createBooking(invalidBody, { failOnStatusCode: false }).then((response) => {
+        expect(response.status).to.eq(500);
+      });
+    });
+  });
+
+  context('Booking GET by ID: Retrieve Booking (Positive & Negative)', function () {
+    it('should successfully retrieve the created booking', function () {
+      cy.api__getBookingById(newBookingId).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body.firstname).to.eq(testData.validBookingData.firstname);
+      });
+    });
+
+    it('should return 404 for a non-existent booking ID (Negative)', function () {
+      cy.api__getBookingById(9999999, { failOnStatusCode: false }).then((response) => {
+        expect(response.status).to.eq(404);
+        expect(response.body).to.eq('Not Found');
+      });
+    });
+  });
+
+  context('Booking PATCH: Update Booking (Positive)', function () {
+    it('should successfully update the created booking firstname', function () {
+      const updateBody = { firstname: testData.updatedBookingData.firstname };
+
+      cy.api__updateBooking(newBookingId, updateBody).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body.firstname).to.eq(testData.updatedBookingData.firstname);
+      });
+    });
+  });
+
+  context('Booking DELETE: Delete Booking and Verify Deletion', function () {
+    it('should successfully delete the booking and return 201 status', function () {
+      cy.api__deleteBooking(newBookingId).then((response) => {
+        expect(response.status).to.eq(201);
+      });
+    });
+
+    it('should return 404 after successful deletion (Verification)', function () {
+      cy.api__getBookingById(newBookingId, { failOnStatusCode: false }).then((response) => {
+        expect(response.status).to.eq(404);
+      });
+    });
+  });
+});
