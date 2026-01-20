@@ -1,34 +1,32 @@
 // cypress/integration/api/booking.api.spec.js
 
+import { bookingData } from '../../support/test-data/booking-data';
+
 describe('Booking Endpoint: Full CRUD Cycle', function () {
   let newBookingId;
-  let testData;
 
   before(function () {
     cy.api__getAuthToken();
-    cy.fixture('booking-data').then((data) => {
-      testData = data;
-    });
   });
 
   context('Booking POST: Create Booking (Positive & Negative)', function () {
     it('should successfully create a new booking', function () {
-      cy.api__createBooking(testData.validBookingData).then((response) => {
+      cy.api__createBooking(bookingData.validBookingData).then((response) => {
         expect(response.status).to.eq(200);
         expect(response.body).to.have.property('bookingid').to.be.a('number');
 
         newBookingId = response.body.bookingid;
 
-        expect(response.body.booking.firstname).to.eq(testData.validBookingData.firstname);
+        expect(response.body.booking.firstname).to.eq(bookingData.validBookingData.firstname);
       });
     });
 
-    it('should return 200(BUG - should be 500) when creating booking with invalid dates (Negative)', function () {
+    it('should return 200 status code for invalid checkin/checkout dates (BUG)', function () {
       // API Bug: API accepts invalid dates and returns 200 OK instead of 400/500.
       // Test adjusted to assert current API behavior.
       const invalidBody = {
-        ...testData.validBookingData,
-        bookingdates: { checkin: '2025-10-05', checkout: '2025-10-01' },
+        ...bookingData.validBookingData,
+        bookingdates: { checkin: '2026-01-29', checkout: '2026-01-26' },
       };
 
       cy.api__createBooking(invalidBody, { failOnStatusCode: false }).then((response) => {
@@ -44,12 +42,12 @@ describe('Booking Endpoint: Full CRUD Cycle', function () {
     it('should successfully retrieve the created booking', function () {
       cy.api__getBookingById(newBookingId).then((response) => {
         expect(response.status).to.eq(200);
-        expect(response.body.firstname).to.eq(testData.validBookingData.firstname);
+        expect(response.body.firstname).to.eq(bookingData.validBookingData.firstname);
       });
     });
 
     it('should return 404 for a non-existent booking ID (Negative)', function () {
-      cy.api__getBookingById(9999999, { failOnStatusCode: false }).then((response) => {
+      cy.api__getBookingById(-1, { failOnStatusCode: false }).then((response) => {
         expect(response.status).to.eq(404);
         expect(response.body).to.eq('Not Found');
       });
@@ -58,11 +56,11 @@ describe('Booking Endpoint: Full CRUD Cycle', function () {
 
   context('Booking PATCH: Update Booking (Positive)', function () {
     it('should successfully update the created booking firstname', function () {
-      const updateBody = { firstname: testData.updatedBookingData.firstname };
+      const updateBody = { firstname: bookingData.updatedBookingData.firstname };
 
       cy.api__updateBooking(newBookingId, updateBody).then((response) => {
         expect(response.status).to.eq(200);
-        expect(response.body.firstname).to.eq(testData.updatedBookingData.firstname);
+        expect(response.body.firstname).to.eq(bookingData.updatedBookingData.firstname);
       });
     });
   });

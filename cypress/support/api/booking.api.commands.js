@@ -1,11 +1,11 @@
 // cypress/support/api/booking.api.commands.js
 
-import { BASE_URL, ENDPOINTS } from './api-urls';
+import { BASE_URL, ENDPOINTS } from '../constants/api-urls';
 
-const defaultBooking = require('../../fixtures/booking-data.json').validBookingData;
+import { bookingData } from '../test-data/booking-data';
 
-Cypress.Commands.add('api__createBooking', (bookingBody = defaultBooking, options = {}) => {
-  const defaultRequestOptions = {
+Cypress.Commands.add('api__createBooking', (bookingBody = bookingData.validBookingData, options = {}) => {
+  return cy.request({
     method: 'POST',
     url: `${BASE_URL}${ENDPOINTS.BOOKING}`,
     headers: {
@@ -13,9 +13,6 @@ Cypress.Commands.add('api__createBooking', (bookingBody = defaultBooking, option
       Accept: 'application/json',
     },
     body: bookingBody,
-  };
-  return cy.request({
-    ...defaultRequestOptions,
     ...options,
   });
 });

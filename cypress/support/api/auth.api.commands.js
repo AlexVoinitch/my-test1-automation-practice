@@ -1,13 +1,9 @@
 // cypress/support/api/auth.api.commands.js
 
-import { BASE_URL, ENDPOINTS } from './api-urls';
+import { BASE_URL, ENDPOINTS } from '../constants/api-urls';
+import { authData } from '../test-data/auth.data';
 
-Cypress.Commands.add('api__getAuthToken', () => {
-  const credentials = {
-    username: 'admin',
-    password: 'password123',
-  };
-
+Cypress.Commands.add('api__getAuthToken', (credentials = authData.adminCredentials) => {
   return cy
     .request({
       method: 'POST',

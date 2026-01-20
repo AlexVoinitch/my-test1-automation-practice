@@ -4,7 +4,7 @@ import userRoles from './user-roles.js';
 import l10n from './l10n.json';
 import urls from './urls.js';
 import selectors from './selectors.js';
-import * as apiUrls from './api/api-urls';
+import * as apiUrls from './constants/api-urls';
 
 import './commands';
 import './api/ping.api.commands';
