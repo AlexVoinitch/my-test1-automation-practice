@@ -1,13 +1,10 @@
 // cypress/support/api/auth.api.commands.js
 
-import { BASE_URL, ENDPOINTS } from '../constants/api-urls';
-import { authData } from '../test-data/auth.data';
-
-Cypress.Commands.add('api__getAuthToken', (credentials = authData.adminCredentials) => {
+Cypress.Commands.add('api__getAuthToken', (credentials) => {
   return cy
     .request({
       method: 'POST',
-      url: `${BASE_URL}${ENDPOINTS.AUTH}`,
+      url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.AUTH}`,
       body: credentials,
       headers: {
         'Content-Type': 'application/json',

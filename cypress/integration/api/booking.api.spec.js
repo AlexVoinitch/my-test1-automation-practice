@@ -6,7 +6,9 @@ describe('Booking Endpoint: Full CRUD Cycle', function () {
   let newBookingId;
 
   before(function () {
-    cy.api__getAuthToken();
+    cy.userManagement__getUserDataByRole(userRoles.ADMIN_API).then((userData)=>{
+      cy.api__getAuthToken(userData);
+    });
   });
 
   context('Booking POST: Create Booking (Positive & Negative)', function () {
