@@ -13,6 +13,7 @@ module.exports = defineConfig({
       dev: {
         envName: 'dev',
         baseUrl: 'https://www.saucedemo.com',
+        apiBaseUrl: 'https://restful-booker.herokuapp.com',
       },
     },
   },

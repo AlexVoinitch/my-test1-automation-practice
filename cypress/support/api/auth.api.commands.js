@@ -4,7 +4,7 @@ Cypress.Commands.add('auth__getToken', (credentials) => {
   return cy
     .request({
       method: 'POST',
-      url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.AUTH}`,
+      url: `${Cypress.env('apiBaseUrl')}${API_URLS.ENDPOINTS.AUTH}`,
       body: credentials,
       headers: { 'Content-Type': 'application/json' },
     })
