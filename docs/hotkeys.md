@@ -18,6 +18,9 @@
 * **Go to symbol definition** `F12`
 * **Find all symbol references** `Shift + F12`
 * **Switch between tabs** `Ctrl + Page Up / Down` (Windows/Linux) / `Cmd + { / }` (macOS)
+* **Go back** `Alt + left`
+* **Go forward** `Alt + right`
+* **duplicate/copy snippet** `Alt + Shift + down`
 
 ## View
 
@@ -35,8 +38,8 @@
 ## Search everywhere in the project:
 
 Press Ctrl + Shift + A
-Press Ctrl + Shift + F  - search in files
-Press Ctrl + Shift + H  - search and replace in all files
+Press Ctrl + Shift + F - search in files
+Press Ctrl + Shift + H - search and replace in all files
 
 ## Go to Definition:
 

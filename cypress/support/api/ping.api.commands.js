@@ -2,7 +2,7 @@
 
 import { BASE_URL, ENDPOINTS } from '../constants/api-urls';
 
-Cypress.Commands.add('api__getHealthCheck', () => {
+Cypress.Commands.add('health__getCheck', () => {
   return cy.request({
     method: 'GET',
     url: `${BASE_URL}${ENDPOINTS.PING}`,

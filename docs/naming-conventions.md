@@ -40,20 +40,21 @@ identify the element. Group selectors by page or component. For example:
 
 ### 2. Custom Command Naming
 
-* **Format:** `api__[method][EntityName]`
+* **Format:** `[entity]__[action]` (Domain-Driven Naming)
+* **Rule:** Avoid technical prefixes like `api__`. Use double underscores to separate the entity from the action.
 * **Usage:** Commands should encapsulate the `cy.request()` call, handle authentication, and return the response.
-* **Examples:** `cy.api__createBooking()`, `cy.api__getAuthToken()`, `cy.api__getBookingById()`
+* **Examples:** `cy.booking__create()`, `cy.auth__getToken()`, `cy.booking__getById()`
 
-### 3. Test Titles (describe/context/it)
+### 3. Test Titles (Gherkin Style)
 
-* **Describe:** Should indicate the main endpoint and functional focus.
-    * *Example:* `Booking Endpoint: Full CRUD Cycle`
-* **Context:** Should specify the request method and the action or scenario.
-    * *Example (Positive):* `Booking POST: Create Booking`
-    * *Example (Negative):* `Booking GET by ID: Retrieve Booking (Negative Scenarios)`
-* **It:** Should clearly state the expected result (positive or negative).
-    * *Example (Positive):* `should successfully update the created booking firstname`
-    * *Example (Negative):* `should return 404 for a non-existent booking ID`
+To make tests readable and descriptive, use the **Given / When / Then** approach:
+
+* **Describe (Given):** The initial context or precondition.
+  * *Example:* `describe('Booking API: Given the user has valid credentials', ...)`
+* **Context (When):** The specific action or scenario being tested. Keep positive and negative scenarios in separate context blocks.
+  * *Example:* `context('When the user attempts to create a booking with valid data', ...)`
+* **It (Then):** The expected outcome.
+  * *Example:* `it('Then the system should return 200 OK and the created booking ID', ...)`
 
 ```javascript
 export const loginPage = {

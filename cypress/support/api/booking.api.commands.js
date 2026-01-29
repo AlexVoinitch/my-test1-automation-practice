@@ -1,13 +1,9 @@
 // cypress/support/api/booking.api.commands.js
 
-import { BASE_URL, ENDPOINTS } from '../constants/api-urls';
-
-import { bookingData } from '../test-data/booking-data';
-
-Cypress.Commands.add('api__createBooking', (bookingBody = bookingData.validBookingData, options = {}) => {
+Cypress.Commands.add('booking__create', (bookingBody, options = {}) => {
   return cy.request({
     method: 'POST',
-    url: `${BASE_URL}${ENDPOINTS.BOOKING}`,
+    url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}`,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -17,43 +13,45 @@ Cypress.Commands.add('api__createBooking', (bookingBody = bookingData.validBooki
   });
 });
 
-Cypress.Commands.add('api__getBookingById', (bookingId, options = {}) => {
+Cypress.Commands.add('booking__getById', (bookingId, options = {}) => {
   return cy.request({
     method: 'GET',
-    url: `${BASE_URL}${ENDPOINTS.BOOKING}/${bookingId}`,
+    url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
     headers: {
       Accept: 'application/json',
     },
-    ...options, // for sending failOnStatusCode: false
+    ...options,
   });
 });
 
-Cypress.Commands.add('api__updateBooking', (bookingId, updateBody) => {
-  const token = Cypress.env('authToken');
-  if (!token) throw new Error('Auth token not found in Cypress environment.');
+Cypress.Commands.add('booking__update', (bookingId, updateBody, token) => {
+  const authToken = token || Cypress.env('authToken');
+
+  if (!authToken) throw new Error('Auth token is required for booking__update');
 
   return cy.request({
     method: 'PATCH',
-    url: `${BASE_URL}${ENDPOINTS.BOOKING}/${bookingId}`,
+    url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Cookie: `token=${token}`,
+      Cookie: `token=${authToken}`,
     },
     body: updateBody,
   });
 });
 
-Cypress.Commands.add('api__deleteBooking', (bookingId) => {
-  const token = Cypress.env('authToken');
-  if (!token) throw new Error('Auth token not found in Cypress environment.');
+Cypress.Commands.add('booking__delete', (bookingId, token) => {
+  const authToken = token || Cypress.env('authToken');
+
+  if (!authToken) throw new Error('Auth token is required for booking__delete');
 
   return cy.request({
     method: 'DELETE',
-    url: `${BASE_URL}${ENDPOINTS.BOOKING}/${bookingId}`,
+    url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
     headers: {
       'Content-Type': 'application/json',
-      Cookie: `token=${token}`,
+      Cookie: `token=${authToken}`,
     },
   });
 });
