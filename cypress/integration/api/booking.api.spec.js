@@ -26,7 +26,7 @@ describe('Booking API: Given the Booking endpoint is available', function () {
         bookingdates: { checkin: '2026-01-29', checkout: '2026-01-26' },
       };
       cy.booking__create(invalidBody, { failOnStatusCode: false }).then((response) => {
-        expect(response.status).to.eq(200);
+        expect(response.status).to.eq(200); // TODO: link to the issue <https://github.com/AlexVoinitch/my-test1-automation-practice/issues/14>
       });
     });
   });
