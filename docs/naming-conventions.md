@@ -56,6 +56,16 @@ To make tests readable and descriptive, use the **Given / When / Then** approach
 * **It (Then):** The expected outcome.
   * *Example:* `it('Then the system should return 200 OK and the created booking ID', ...)`
 
+### 4. Test Structure and Prefixing
+
+Each test block must follow a strict hierarchy to ensure clarity in reports:
+
+* **Prefix Format:** `[Module].[Endpoint].[Action].[Method]`
+* **Context (When):** Use a separate `context` for EVERY `it` block. The title must describe the specific condition.
+  * *Example:* `context('Booking.Booking.Create.Positive: When valid data is provided', ...)`
+* **It (Then):** Describe the expected outcome.
+  * *Example:* `it('Booking.Booking.Create.POST: Then the system should return 200 OK', ...)`
+
 ```javascript
 export const loginPage = {
   usernameInput: '[data-test="username"]',
