@@ -4,7 +4,12 @@ import userRoles from './user-roles.js';
 import l10n from './l10n.json';
 import urls from './urls.js';
 import selectors from './selectors.js';
+import * as apiUrls from './constants/api-urls';
+
 import './commands';
+import './api/ping.api.commands';
+import './api/booking.api.commands';
+import './api/auth.api.commands';
 
 global.userRoles = userRoles.userRoles;
 global.inventoryPage = selectors.inventoryPage;
@@ -17,3 +22,4 @@ global.checkoutCompletePage = selectors.checkoutCompletePage;
 
 global.appUrls = urls;
 global.l10n = l10n;
+global.API_URLS = apiUrls;
