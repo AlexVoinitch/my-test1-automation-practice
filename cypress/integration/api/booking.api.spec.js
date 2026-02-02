@@ -1,4 +1,5 @@
 // cypress/integration/api/booking.api.spec.js
+
 import { bookingData } from '../../support/test-data/booking-data';
 
 describe('Booking API: Given the Booking endpoint is available', function () {

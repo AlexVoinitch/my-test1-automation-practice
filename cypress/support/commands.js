@@ -1,5 +1,7 @@
 // cypress/support/commands.js
+
 import rolesConfig from './user-roles';
+
 const { userRoles } = rolesConfig;
 
 Cypress.Commands.add('loginPage__login', ({ username, password }) => {
