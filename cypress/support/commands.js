@@ -1,5 +1,4 @@
 // cypress/support/commands.js
-
 import rolesConfig from './user-roles';
 const { userRoles } = rolesConfig;
 

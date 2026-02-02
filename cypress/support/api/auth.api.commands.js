@@ -14,7 +14,6 @@ Cypress.Commands.add('auth__getToken', (userData) => {
       if (!response.body.token) {
         cy.log('⚠️ Error Authorisation! Server Response::', JSON.stringify(response.body));
       }
-
       const tokenValue = response.body.token;
       Cypress.env('token', tokenValue);
       return tokenValue;

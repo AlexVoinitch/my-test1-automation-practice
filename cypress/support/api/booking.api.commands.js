@@ -36,7 +36,6 @@ Cypress.Commands.add('booking__getById', (bookingId, options = {}) => {
 Cypress.Commands.add('booking__fullUpdate', (bookingId, fullBody, options = {}) => {
   const token = options.token || Cypress.env('token');
   if (!token) throw new Error('Auth token is required for booking__fullUpdate');
-
   return cy.request({
     method: 'PUT',
     url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
@@ -53,7 +52,6 @@ Cypress.Commands.add('booking__fullUpdate', (bookingId, fullBody, options = {}) 
 Cypress.Commands.add('booking__update', (bookingId, updateBody, options = {}) => {
   const token = options.token || Cypress.env('token');
   if (!token) throw new Error('Auth token is required for booking__update');
-
   return cy.request({
     method: 'PATCH',
     url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
@@ -70,7 +68,6 @@ Cypress.Commands.add('booking__update', (bookingId, updateBody, options = {}) =>
 Cypress.Commands.add('booking__delete', (bookingId, options = {}) => {
   const token = options.token || Cypress.env('token');
   if (!token) throw new Error('Auth token is required for booking__delete');
-
   return cy.request({
     method: 'DELETE',
     url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.BOOKING}/${bookingId}`,
