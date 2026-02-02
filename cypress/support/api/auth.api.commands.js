@@ -1,21 +1,22 @@
 // cypress/support/api/auth.api.commands.js
 
-Cypress.Commands.add('auth__getToken', (credentials) => {
+Cypress.Commands.add('auth__getToken', (userData) => {
   return cy
     .request({
       method: 'POST',
-      url: `${Cypress.env('apiBaseUrl')}${API_URLS.ENDPOINTS.AUTH}`,
-      body: credentials,
-      headers: { 'Content-Type': 'application/json' },
+      url: `${API_URLS.BASE_URL}/auth`,
+      body: {
+        username: userData.username,
+        password: userData.password,
+      },
     })
     .then((response) => {
-      const token = response.body.token;
-
-      if (token) {
-        Cypress.env('authToken', token);
-        cy.log('✅ Token successfully saved');
-      } else {
-        cy.log('❌ AUTH FAILED. Reason:', response.body.reason || 'Unknown error');
+      if (!response.body.token) {
+        cy.log('⚠️ Error Authorisation! Server Response::', JSON.stringify(response.body));
       }
+
+      const tokenValue = response.body.token;
+      Cypress.env('token', tokenValue);
+      return tokenValue;
     });
 });
