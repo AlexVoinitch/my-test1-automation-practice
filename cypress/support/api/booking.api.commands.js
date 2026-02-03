@@ -1,5 +1,4 @@
 // cypress/support/api/booking.api.commands.js
-
 Cypress.Commands.add('booking__create', (bookingBody, options = {}) => {
   const { failOnStatusCode, ...restOptions } = options;
 
@@ -48,7 +47,6 @@ Cypress.Commands.add('booking__fullUpdate', (bookingId, fullBody, options = {}) 
   const token = manualToken || Cypress.env('token');
 
   if (!token) throw new Error('Auth token is required for booking__fullUpdate');
-
   return cy.request({
     ...restOptions,
     method: 'PUT',
@@ -69,7 +67,6 @@ Cypress.Commands.add('booking__update', (bookingId, updateBody, options = {}) =>
   const token = manualToken || Cypress.env('token');
 
   if (!token) throw new Error('Auth token is required for booking__update');
-
   return cy.request({
     ...restOptions,
     method: 'PATCH',

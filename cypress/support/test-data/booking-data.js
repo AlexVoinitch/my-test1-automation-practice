@@ -1,5 +1,4 @@
 // cypress/support/test-data/booking-data.js
-
 const getRandomString = (length = 8) => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let result = '';

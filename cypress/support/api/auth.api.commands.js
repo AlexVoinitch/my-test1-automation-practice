@@ -1,5 +1,4 @@
 // cypress/support/api/auth.api.commands.js
-
 Cypress.Commands.add('auth__getToken', (userData) => {
   return cy
     .request({

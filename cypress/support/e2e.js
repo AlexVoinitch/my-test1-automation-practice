@@ -1,5 +1,4 @@
 // cypress/support/e2e.js
-
 import userRoles from './user-roles.js';
 import l10n from './l10n.json';
 import urls from './urls.js';
