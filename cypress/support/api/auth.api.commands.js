@@ -4,7 +4,7 @@ Cypress.Commands.add('auth__getToken', (userData) => {
   return cy
     .request({
       method: 'POST',
-      url: `${API_URLS.BASE_URL}/auth`,
+      url: `${API_URLS.BASE_URL}${API_URLS.ENDPOINTS.AUTH}`,
       body: {
         username: userData.username,
         password: userData.password,
@@ -12,8 +12,10 @@ Cypress.Commands.add('auth__getToken', (userData) => {
     })
     .then((response) => {
       if (!response.body.token) {
-        cy.log('⚠️ Error Authorisation! Server Response::', JSON.stringify(response.body));
+        const errorMsg = `❌ Authorization Failed! Server Response: ${JSON.stringify(response.body)}`;
+        throw new Error(errorMsg);
       }
+
       const tokenValue = response.body.token;
       Cypress.env('token', tokenValue);
       return tokenValue;
