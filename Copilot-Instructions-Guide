@@ -1,0 +1,946 @@
+# Copilot Instructions Maintenance Guide
+
+This document explains how to create, maintain, and govern GitHub Copilot instructions for the Test Automation Framework. It serves as a guide for team members responsible for keeping AI assistance aligned with project standards.
+
+---
+
+## 📋 Table of Contents
+
+1. [Overview](#overview)
+2. [Instruction File Structure](#instruction-file-structure)
+3. [Creating New Instructions](#creating-new-instructions)
+4. [Maintaining Existing Instructions](#maintaining-existing-instructions)
+5. [Best Practices](#best-practices)
+6. [Governance and Review Process](#governance-and-review-process)
+7. [Testing Instructions](#testing-instructions)
+8. [Common Patterns](#common-patterns)
+9. [Troubleshooting](#troubleshooting)
+
+---
+
+## Overview
+
+### What Are Copilot Instructions?
+
+GitHub Copilot instructions are Markdown files that guide AI-assisted development by:
+- Defining coding standards and conventions
+- Providing framework-specific patterns
+- Preventing unwanted suggestions (e.g., framework changes)
+- Ensuring consistency across the team
+- Accelerating onboarding for new team members
+
+### Instruction Hierarchy
+
+```
+.github/
+├── copilot-instructions.md          # Root-level, applies to entire repository
+├── AGENTS.md                         # Copilot Coding Agent configurations
+└── instructions/                     # Domain-specific instructions
+    ├── ui-testing.instructions.md    # UI test development
+    ├── api-testing.instructions.md   # API test development
+    └── ci-cd.instructions.md         # CI/CD integration
+```
+
+#### File Purpose and Scope
+
+| File | Scope | When Applied |
+|------|-------|--------------|
+| `copilot-instructions.md` | Framework-wide principles | All coding activities |
+| `ui-testing.instructions.md` | UI test development | Working in `features/ui/`, `core/pages/` |
+| `api-testing.instructions.md` | API test development | Working in `features/api/`, `core/api/` |
+| `ci-cd.instructions.md` | Pipeline configuration | Working with YAML, Docker, pipeline files |
+| `AGENTS.md` | Specialized agents | When using Copilot Coding Agent feature |
+
+---
+
+## Instruction File Structure
+
+### Recommended Template
+
+```markdown
+# [Domain] Instructions
+
+**Scope**: This file applies to [specific files/directories/activities]
+
+## Architecture Overview
+- High-level explanation of the domain
+- Key components and their relationships
+- Design principles specific to this domain
+
+## Best Practices
+### ✅ DO
+- Specific, actionable recommendations
+- Code examples showing correct usage
+
+### ❌ DON'T
+- Specific things to avoid
+- Anti-patterns with explanations
+
+## Common Patterns
+### Pattern Name
+```language
+// Code example
+```
+**When to use**: Explanation
+**Why**: Rationale
+
+## Available Tools/Utilities
+- List of relevant classes, functions, fixtures
+- Usage examples for each
+
+## Step-by-Step Workflows
+1. Clear, numbered steps
+2. Decision points
+3. Expected outcomes
+
+## Troubleshooting
+- Common issues
+- Diagnostic steps
+- Solutions
+
+## References
+- Links to related instructions
+- External documentation
+```
+
+### Essential Sections
+
+Every instruction file should include:
+
+1. **Scope Statement**: Clearly define when these instructions apply
+2. **DO's and DON'Ts**: Explicit guidance on what to do and avoid
+3. **Code Examples**: Real, working examples from the codebase
+4. **Common Patterns**: Reusable solutions to frequent problems
+5. **Constraints**: Hard rules that must not be violated
+6. **Cross-References**: Links to related documentation
+
+---
+
+## Creating New Instructions
+
+### When to Create New Instructions
+
+Create new instruction files when:
+- **New domain added**: New testing type (e.g., mobile, performance)
+- **Complex subsystem**: Warrants dedicated guidance (e.g., security testing)
+- **Team growth**: New patterns emerge that need standardization
+- **Frequent mistakes**: Repeated issues that need prevention
+
+### Step-by-Step Creation Process
+
+#### Step 1: Define Scope
+
+```markdown
+# [Domain] Instructions
+
+**Scope**: This file applies to:
+- Directory: `path/to/files/`
+- File patterns: `*.spec.ts`, `*.api.ts`
+- Activities: Specific development tasks
+```
+
+**Example**:
+```markdown
+# Database Testing Instructions
+
+**Scope**: This file applies to:
+- SQL query files in `fixtures/sql/`
+- Database step definitions in `features/steps/sql.steps.ts`
+- Database utility in `core/utils/db.util.ts`
+- Any test scenarios using database verification
+```
+
+#### Step 2: Document Architecture
+
+Explain the structure and key components:
+
+```markdown
+## Architecture
+
+### Components
+- **Component A**: Purpose and responsibility
+- **Component B**: How it interacts with A
+- **Component C**: When to use it
+
+### Design Principles
+1. Principle 1 with rationale
+2. Principle 2 with rationale
+
+### Data Flow
+```
+User Input → Component A → Component B → Output
+```
+```
+
+#### Step 3: Define Standards
+
+```markdown
+## Coding Standards
+
+### File Naming
+- Pattern: `feature-type.extension`
+- Examples: `user-login.sql`, `api-validation.steps.ts`
+
+### Code Organization
+- Structure imports: framework → utilities → local
+- Group related functions
+- One class per file (exceptions noted)
+
+### TypeScript Usage
+- Use strict typing
+- Define interfaces for complex objects
+- Prefer type inference where clear
+```
+
+#### Step 4: Provide Examples
+
+Include real, working examples:
+
+```markdown
+## Common Patterns
+
+### Pattern: Database Seed and Verify
+
+**Feature File**:
+```gherkin
+Scenario: Verify user created in database
+  Given User make POST request to "APIUrl" with path "/api/users" with a JSON payload from "json/user.json"
+  Then Response should have status code 201
+  When User make request to database with query from "sql/find-user-by-email.sql"
+  Then User verify that db query result contain one record
+```
+
+**SQL Query** (`fixtures/sql/find-user-by-email.sql`):
+```sql
+SELECT * FROM Users WHERE Email = 'test@example.com'
+```
+
+**When to use**: API operations that modify database state
+**Why**: Ensures data persistence and integrity
+```
+
+#### Step 5: Document Tools and Utilities
+
+```markdown
+## Available Utilities
+
+### DatabaseUtil
+
+**Location**: `core/utils/db.util.ts`
+
+**Methods**:
+```typescript
+static async seedDatabase(sqlFilesArray: (string | SqlFile)[]): Promise<void>
+```
+
+**Usage**:
+```typescript
+await DatabaseUtil.seedDatabase(['setup.sql']);
+await DatabaseUtil.seedDatabase([
+  { path: 'insert-user.sql', params: { email: 'test@example.com' } }
+]);
+```
+```
+
+#### Step 6: Add Troubleshooting
+
+```markdown
+## Troubleshooting
+
+### Issue: Connection Timeout
+
+**Symptoms**:
+- Tests fail with "Connection timeout" error
+- Works locally but fails in CI
+
+**Diagnosis**:
+1. Check database connection string
+2. Verify firewall rules
+3. Confirm service availability
+
+**Solutions**:
+- Update connection string in environment config
+- Whitelist Azure DevOps agent IPs
+- Increase timeout in `playwright.config.ts`
+```
+
+#### Step 7: Review and Test
+
+Before finalizing:
+1. **Validate examples**: Ensure all code examples work
+2. **Check links**: Verify all cross-references resolve
+3. **Test with Copilot**: Ask Copilot questions to see if instructions are followed
+4. **Peer review**: Have team member review for clarity
+
+---
+
+## Maintaining Existing Instructions
+
+### Regular Maintenance Tasks
+
+#### Weekly Review
+
+- [ ] Check for outdated examples
+- [ ] Verify links still work
+- [ ] Update based on recent code changes
+- [ ] Review team questions/confusions
+
+#### Monthly Updates
+
+- [ ] Align with framework updates
+- [ ] Add new patterns discovered by team
+- [ ] Remove deprecated approaches
+- [ ] Update version-specific guidance
+
+#### Quarterly Audits
+
+- [ ] Comprehensive review of all instructions
+- [ ] Gather team feedback
+- [ ] Compare with actual codebase
+- [ ] Identify gaps in coverage
+
+### When to Update Instructions
+
+Update immediately when:
+- **Framework changes**: Playwright version upgrade, new dependencies
+- **Pattern changes**: Team adopts new approach
+- **Repeated mistakes**: Same issue occurring multiple times
+- **Tool additions**: New utilities or base classes added
+
+### Update Process
+
+1. **Identify change**: What needs updating and why
+2. **Draft update**: Create clear, example-driven changes
+3. **Validate**: Test that Copilot follows new guidance
+4. **Review**: Get team approval
+5. **Deploy**: Commit and communicate changes
+6. **Monitor**: Watch for impact on Copilot suggestions
+
+### Version Control for Instructions
+
+Use semantic commits for instruction changes:
+
+```bash
+# New instructions
+git commit -m "docs(copilot): add database testing instructions"
+
+# Update existing
+git commit -m "docs(copilot): update API testing with PUT/DELETE methods"
+
+# Fix errors
+git commit -m "fix(copilot): correct API client usage example"
+
+# Deprecated features
+git commit -m "docs(copilot): remove deprecated page.$ usage"
+```
+
+---
+
+## Best Practices
+
+### Writing Effective Instructions
+
+#### 1. Be Specific and Actionable
+
+```markdown
+# ❌ Vague
+Use good selectors for UI elements
+
+# ✅ Specific
+Use test IDs as first choice for selectors:
+- Preferred: [data-testid="submit-button"]
+- Acceptable: button:has-text("Submit")
+- Avoid: .btn.btn-primary (generic classes)
+```
+
+#### 2. Provide Context
+
+```markdown
+# ❌ Without Context
+Don't use page.$()
+
+# ✅ With Context
+Don't use page.$() or page.$$() - these are deprecated Playwright methods.
+Instead, use page.locator() which provides:
+- Auto-waiting capabilities
+- Better error messages
+- Retry mechanisms
+- Type safety with TypeScript
+```
+
+#### 3. Use Real Examples
+
+```markdown
+# ❌ Generic Example
+Create a step definition for clicking
+
+# ✅ Real Example from Codebase
+When("User click on {string} on {string} page", async ({ page, locators }, locatorName, pageName) => {
+    let selector = locators.getLocatorFromPageByName(pageName, locatorName);
+    await page.locator(selector).click();
+});
+```
+
+#### 4. Explain the "Why"
+
+```markdown
+# ❌ Command Without Reason
+Always use ConfigUtil.getUrl() for URLs
+
+# ✅ With Rationale
+Always use ConfigUtil.getUrl() for URLs instead of hardcoding.
+Why: Environment-specific URLs change across test/staging/production.
+ConfigUtil reads from autotests.environments.json based on TARGET_ENV,
+enabling the same tests to run across all environments.
+```
+
+#### 5. Prioritize DO's Over DON'Ts
+
+```markdown
+# ⚠️ Focuses on negatives
+Don't hardcode URLs
+Don't use implicit waits
+Don't skip error handling
+
+# ✅ Focuses on positives
+Use ConfigUtil.getUrl() for all URLs
+Rely on Playwright's auto-waiting (no explicit waits needed)
+Add try-catch blocks with meaningful error messages
+```
+
+### Structuring for Copilot
+
+#### Use Markdown Hierarchy
+
+Copilot better understands well-structured documents:
+
+```markdown
+# Main Topic (H1) - Domain name
+## Category (H2) - Major sections
+### Subsection (H3) - Specific topics
+#### Detail (H4) - Fine-grained points
+```
+
+#### Use Lists for Scanability
+
+```markdown
+# ✅ Easy to scan
+Available step definitions:
+- `User click on "element" on "page" page` - Click interaction
+- `User fill in text "value" in "field" on "page" page` - Text input
+- `Element "element" should be visible on "page" page` - Visibility check
+
+# ❌ Hard to scan
+There are several step definitions available including clicking on elements,
+filling in text fields, and checking visibility of elements on pages.
+```
+
+#### Use Code Fences with Language Tags
+
+```markdown
+# ✅ Syntax highlighted and clear
+```typescript
+const response = await apiClient.get("APIUrl", "/api/users");
+expect(response.status()).toBe(200);
+```
+
+# ❌ Unclear and unstyled
+const response = await apiClient.get("APIUrl", "/api/users");
+expect(response.status()).toBe(200);
+```
+
+#### Use Tables for Comparisons
+
+```markdown
+| Selector Type | Priority | Example | When to Use |
+|---------------|----------|---------|-------------|
+| Test ID | 1 (Highest) | `[data-testid="login"]` | Always prefer |
+| Accessible | 2 | `button:has-text("Submit")` | When test IDs unavailable |
+| CSS | 3 | `.login-button` | Stable classes only |
+| XPath | 4 (Last resort) | `//button[@id="submit"]` | Complex DOM navigation |
+```
+
+### Keeping Instructions Concise
+
+#### Balance Detail with Brevity
+
+```markdown
+# ❌ Too brief
+Use fixtures for API calls.
+
+# ❌ Too verbose
+The framework implements a fixture-based dependency injection pattern
+utilizing Playwright's test.extend() API to provide shared resources
+across test scenarios. For API testing, the apiClient fixture is
+instantiated as an instance of ApiClientBase class which wraps...
+
+# ✅ Just right
+Use the `apiClient` fixture for API requests. It's available in all
+step definitions and wraps Playwright's APIRequestContext:
+
+```gherkin
+Given User make GET request to "APIUrl" with path "/api/users"
+```
+
+The fixture handles URL resolution via ConfigUtil automatically.
+```
+
+#### Link Instead of Repeating
+
+```markdown
+# ❌ Duplicates content
+API Testing uses the ApiClientBase class which has get(), post(),
+and put() methods... [repeats full API documentation]
+
+# ✅ Links to canonical source
+API Testing uses the ApiClientBase class. See the class documentation
+in `core/api/api.client.base.ts` for available methods.
+
+For step definitions using apiClient, see:
+- `.github/instructions/api-testing.instructions.md`
+```
+
+---
+
+## Governance and Review Process
+
+### Change Approval Process
+
+#### Minor Updates (No Review Required)
+- Typo fixes
+- Link updates
+- Formatting improvements
+- Example clarification
+
+**Process**: Commit directly to main branch
+
+#### Major Updates (Review Required)
+- New instruction files
+- Pattern changes
+- Constraint modifications
+- Architecture changes
+
+**Process**:
+1. Create feature branch
+2. Draft changes with examples
+3. Open pull request
+4. Request review from 2+ team members
+5. Test with Copilot
+6. Merge after approval
+
+### Review Checklist
+
+When reviewing instruction changes:
+
+- [ ] **Accuracy**: Instructions match current codebase
+- [ ] **Completeness**: All necessary information provided
+- [ ] **Clarity**: Clear and unambiguous language
+- [ ] **Examples**: Working code examples included
+- [ ] **Consistency**: Aligns with other instructions
+- [ ] **Tested**: Verified with Copilot
+- [ ] **No conflicts**: Doesn't contradict existing guidance
+
+### Stakeholder Responsibilities
+
+| Role | Responsibilities |
+|------|------------------|
+| **Test Lead** | - Approve major changes<br>- Define instruction strategy<br>- Resolve conflicts |
+| **Senior QA Engineers** | - Review updates<br>- Provide feedback<br>- Create new instructions |
+| **QA Engineers** | - Follow instructions<br>- Report issues<br>- Suggest improvements |
+| **DevOps Engineer** | - Maintain CI/CD instructions<br>- Update pipeline guidance |
+
+### Feedback Loop
+
+Establish continuous improvement:
+
+1. **Monitor**: Track Copilot suggestions quality
+2. **Collect**: Gather team feedback regularly
+3. **Analyze**: Identify patterns in issues
+4. **Update**: Improve instructions based on findings
+5. **Communicate**: Share changes with team
+6. **Verify**: Confirm improvements in suggestions
+
+---
+
+## Testing Instructions
+
+### How to Test Instructions
+
+#### Method 1: Directed Questions
+
+Ask Copilot specific questions:
+
+```
+Q: How should I create a new API test scenario?
+A: [Check if Copilot mentions feature file, tags, JSON fixtures, etc.]
+
+Q: What's the correct way to add a new page locator?
+A: [Verify mentions core/pages/locators.ts and selector priority]
+
+Q: Should I use page.$() for element selection?
+A: [Ensure Copilot recommends page.locator() instead]
+```
+
+#### Method 2: Code Generation
+
+Request code and verify it follows patterns:
+
+```
+Request: "Create a step definition for DELETE API request"
+
+Verify generated code:
+- Uses TypeScript with types ✓
+- Uses apiClient fixture ✓
+- Uses async/await ✓
+- Follows naming convention ✓
+- No hardcoded URLs ✓
+```
+
+#### Method 3: Refactoring Suggestions
+
+Provide suboptimal code and ask for improvements:
+
+```typescript
+// Provide this code:
+const button = await page.$('#submit');
+await button.click();
+
+// Ask: "Improve this code following framework standards"
+// Verify Copilot suggests:
+await page.locator('#submit').click();
+// or better yet:
+const selector = locators.getLocatorFromPageByName('PageName', 'submitButton');
+await page.locator(selector).click();
+```
+
+#### Method 4: Anti-Pattern Detection
+
+Provide code with known issues:
+
+```typescript
+// Provide this:
+await page.goto('https://test.example.com/login');
+
+// Verify Copilot suggests:
+await page.goto(ConfigUtil.getUrl('loginURL'));
+```
+
+### Test Scenarios for New Instructions
+
+When adding new instructions, test these scenarios:
+
+1. **Basic Understanding**: Can Copilot explain the concept?
+2. **Code Generation**: Does it generate compliant code?
+3. **Error Correction**: Does it catch and fix violations?
+4. **Pattern Recognition**: Does it suggest appropriate patterns?
+5. **Cross-Reference**: Does it link to related instructions?
+
+### Metrics for Instruction Quality
+
+Track these metrics over time:
+
+- **Suggestion Acceptance Rate**: % of Copilot suggestions accepted
+- **Code Review Issues**: # of pattern violations in PRs
+- **Refactoring Frequency**: How often code needs rework
+- **Onboarding Time**: Time for new members to become productive
+- **Consistency Score**: Similarity in code patterns across team
+
+---
+
+## Common Patterns
+
+### Pattern: Framework Constraints
+
+Use this template to prevent unwanted suggestions:
+
+```markdown
+## ❌ DON'T - Framework Constraints
+
+**Never suggest**:
+- Changing to different test frameworks (Cypress, Selenium, etc.)
+- Using deprecated Playwright methods (page.$(), page.$$())
+- Hardcoding environment-specific values
+- Skipping BDD feature files
+
+**Why**: [Explain reasoning for each constraint]
+
+**Instead**: [Provide correct approach]
+```
+
+### Pattern: Step-by-Step Workflows
+
+Use this template for complex processes:
+
+```markdown
+## Workflow: [Process Name]
+
+### Prerequisites
+- Required knowledge
+- Necessary tools/access
+- Files to review first
+
+### Steps
+
+1. **[Action 1]**
+   ```language
+   // Code example
+   ```
+   **Expected outcome**: What should happen
+   **If it fails**: Troubleshooting steps
+
+2. **[Action 2]**
+   [Detailed instructions]
+
+3. **[Action 3]**
+   [Continue pattern]
+
+### Validation
+- [ ] Checklist item 1
+- [ ] Checklist item 2
+- [ ] Checklist item 3
+
+### Next Steps
+- What to do after completion
+- Related tasks
+```
+
+### Pattern: Decision Trees
+
+Help Copilot make context-aware decisions:
+
+```markdown
+## When to Create New [Component]
+
+Use this decision tree:
+
+```
+Need new functionality?
+├─ Yes → Is there existing similar code?
+│         ├─ Yes → Extend existing component
+│         └─ No → Create new component
+└─ No → Use existing component
+```
+
+**Creating New Component**:
+1. Check for similar implementations
+2. Follow naming conventions
+3. Add to appropriate directory
+4. Document usage
+5. Update this guide
+
+**Extending Existing Component**:
+1. Understand current implementation
+2. Ensure backward compatibility
+3. Add tests for new functionality
+4. Update documentation
+```
+
+### Pattern: Quick Reference
+
+Provide cheat sheets for frequent tasks:
+
+```markdown
+## Quick Reference: API Testing
+
+| Task | Command | Notes |
+|------|---------|-------|
+| Create feature | `features/api/name.feature` | Use kebab-case |
+| Add test data | `fixtures/json/data.json` | Descriptive names |
+| Run API tests | `npx bddgen --tags "@api"` | Excludes UI tests |
+| Debug response | `console.log(await response.json())` | In step definition |
+
+**Common Step Patterns**:
+```gherkin
+# GET request
+Given User make GET request to "serviceName" with path "/api/endpoint"
+
+# POST with file
+Given User make POST request to "serviceName" with path "/api/endpoint" with a JSON payload from "json/file.json"
+
+# Validate status
+Then Response should have status code 200
+
+# Validate body
+Then Response should contain "fieldName"
+```
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### Issue: Copilot Ignores Instructions
+
+**Symptoms**:
+- Generates code not following patterns
+- Suggests deprecated approaches
+- Misses framework-specific guidelines
+
+**Causes**:
+- Instructions too vague or buried in text
+- Conflicting guidance across files
+- Missing context in prompt
+
+**Solutions**:
+1. **Make instructions more explicit**:
+   ```markdown
+   # ❌ Weak
+   Use proper selectors
+   
+   # ✅ Strong
+   ALWAYS use page.locator() for element selection.
+   NEVER use page.$() or page.$$() - these are deprecated.
+   ```
+
+2. **Add constraints section**:
+   ```markdown
+   ## Hard Constraints (Never Violate)
+   - Must use TypeScript with strict typing
+   - Must use Playwright locators (not ElementHandle)
+   - Must validate status codes in API tests
+   ```
+
+3. **Provide context in prompts**:
+   ```
+   # ❌ Vague prompt
+   "Create API test"
+   
+   # ✅ Specific prompt
+   "Create API test following patterns in .github/instructions/api-testing.instructions.md.
+   Use apiClient fixture and store payload in fixtures/json/"
+   ```
+
+#### Issue: Conflicting Instructions
+
+**Symptoms**:
+- Different guidance in different files
+- Copilot uncertain which pattern to follow
+
+**Solution**:
+1. **Establish hierarchy**:
+   - Root `copilot-instructions.md` = framework-wide principles
+   - Domain instructions = specific to that domain
+   - Code comments = override for specific cases
+
+2. **Add scope statements**:
+   ```markdown
+   **Scope**: This file applies to API testing only.
+   For UI testing, see ui-testing.instructions.md
+   ```
+
+3. **Cross-reference**:
+   ```markdown
+   This pattern overrides the general guidance in copilot-instructions.md
+   for database testing scenarios specifically.
+   ```
+
+#### Issue: Instructions Not Updated with Code
+
+**Symptoms**:
+- Examples don't work
+- Referenced files don't exist
+- Methods mentioned are deprecated
+
+**Solution**:
+1. **Link code reviews to instruction updates**:
+   - PR checklist item: "Update Copilot instructions if patterns changed"
+
+2. **Automated checks**:
+   ```bash
+   # Check if mentioned files exist
+   grep -r "core/api/" .github/ | grep -o "core/api/[^ ]*" | while read file; do
+     [ -f "$file" ] || echo "⚠️  Missing: $file"
+   done
+   ```
+
+3. **Quarterly audits**:
+   - Review all code examples
+   - Update deprecated references
+   - Add new patterns discovered
+
+#### Issue: Too Much Information
+
+**Symptoms**:
+- Instructions overwhelming
+- Key points buried in text
+- Copilot provides generic responses
+
+**Solution**:
+1. **Use visual hierarchy**:
+   - H2 for major concepts
+   - H3 for specific topics
+   - Bold for key points
+   - Code blocks for examples
+
+2. **Create summary sections**:
+   ```markdown
+   ## Quick Start
+   **Essential points**:
+   1. Always use fixtures
+   2. Never hardcode URLs
+   3. Follow BDD patterns
+   
+   **For details**, see sections below.
+   ```
+
+3. **Move details to separate files**:
+   ```markdown
+   ## Advanced Topics
+   For advanced scenarios like custom authentication,
+   see `docs/advanced-api-testing.md`
+   ```
+
+### Validation Checklist
+
+Use this before committing instruction changes:
+
+```markdown
+## Instruction Validation Checklist
+
+- [ ] **Scope clearly defined** at top of file
+- [ ] **Code examples work** (tested locally)
+- [ ] **Links resolve** to existing files
+- [ ] **No conflicts** with other instructions
+- [ ] **Follows template** structure
+- [ ] **Includes DO's and DON'Ts**
+- [ ] **Has real examples** from codebase
+- [ ] **Explains rationale** for key decisions
+- [ ] **Cross-references** related docs
+- [ ] **Tested with Copilot** (suggestions improve)
+- [ ] **Team reviewed** (if major change)
+- [ ] **Commit message** describes change
+```
+
+---
+
+## Appendix
+
+### Useful Resources
+
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+- [Playwright Best Practices](https://playwright.dev/docs/best-practices)
+- [Gherkin Reference](https://cucumber.io/docs/gherkin/reference/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+
+### Template Files
+
+All templates available in `docs/templates/`:
+- `instruction-template.md` - Blank instruction file
+- `agent-template.md` - Agent configuration template
+- `pattern-template.md` - Common pattern documentation
+
+### Contact
+
+**Questions or suggestions?**
+- **Slack**: #test-automation channel
+- **Email**: test-automation-team@example.com
+- **Wiki**: [Test Automation Knowledge Base](https://wiki.example.com/qa)
+
+---
+
+**Document Version**: 1.0  
+**Last Updated**: October 2025  
+**Next Review**: January 2026  
+**Maintained By**: Test Automation Team
